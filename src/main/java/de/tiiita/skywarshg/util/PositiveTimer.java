@@ -9,52 +9,34 @@ import org.bukkit.scheduler.BukkitTask;
  * Created on Dezember 17, 2022 | 18:21:40
  * (●'◡'●)
  */
-public class Timer {
-    private final int duration;
+public class PositiveTimer {
     private final Plugin plugin;
 
-    public Timer(int durationInSeconds, Plugin plugin) {
-        this.duration = durationInSeconds;
+    public PositiveTimer(Plugin plugin) {
         this.plugin = plugin;
     }
 
     private boolean running = false;
-    private Runnable whenComplete;
     private Runnable eachSecond;
     int counter;
     private BukkitTask bukkitTask;
 
     public void start() {
-        counter = duration;
         running = true;
         bukkitTask = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
-            if (counter > 0) {
-                if (eachSecond != null) {
-                    eachSecond.run();
-                }
-                counter--;
-            } else {
-                bukkitTask.cancel();
-                running = false;
-
-                if (whenComplete != null) {
-                    whenComplete.run();
-                }
+            if (eachSecond != null) {
+                eachSecond.run();
             }
+            counter++;
 
         }, 0, 20);
-
     }
 
     public void stop() {
         bukkitTask.cancel();
         bukkitTask = null;
-        counter = duration;
+        counter = 0;
         running = false;
-    }
-
-    public void whenComplete(Runnable runnable) {
-        this.whenComplete = runnable;
     }
 
     public void eachSecond(Runnable runnable) {
