@@ -105,7 +105,6 @@ public class LobbyPhase implements Listener {
             gameManager.setCurrentGamePhase(GamePhase.STARTED);
 
             //Shut lobby phase down because another phase began
-            stopCounting();
             stop();
         });
 

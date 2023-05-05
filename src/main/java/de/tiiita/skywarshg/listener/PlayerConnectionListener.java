@@ -37,8 +37,8 @@ public class PlayerConnectionListener implements Listener {
 
         gameBoard.setScoreboard(player);
         Bukkit.getOnlinePlayers().forEach(gameBoard::updateScoreboard);
+        player.getInventory().clear();
     }
-
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
