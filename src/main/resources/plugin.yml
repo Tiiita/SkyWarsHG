@@ -1,0 +1,9 @@
+name: SkyWarsHG
+version: '${project.version}'
+main: de.tiiita.skywarshg.SkyWarsHG
+prefix: SWHG
+description: A HardcodeGames Mode mixed with SkyWars. Jump down like in SkyWars and pick up some soups. Go into the Middle of the Map and fight and get better loot!
+
+
+commands:
+  start:
