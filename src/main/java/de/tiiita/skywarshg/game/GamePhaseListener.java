@@ -13,6 +13,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
+import java.util.logging.Level;
+
 /**
  * Created on Mai 05, 2023 | 15:38:24
  * (●'◡'●)
@@ -31,6 +33,7 @@ public class GamePhaseListener implements Listener {
         this.plugin = plugin;
         this.messagesConfig = messagesConfig;
         this.config = config;
+        plugin.getLogger().log(Level.SEVERE, "Started");
     }
 
     @EventHandler
@@ -47,6 +50,8 @@ public class GamePhaseListener implements Listener {
             case STARTED: {
                 this.startedPhase = new StartedPhase(gameBoard, gameManager, plugin);
                 Bukkit.getPluginManager().registerEvents(startedPhase, plugin);
+
+                plugin.getLogger().log(Level.SEVERE, "Start");
                 startedPhase.start();
                 break;
             }

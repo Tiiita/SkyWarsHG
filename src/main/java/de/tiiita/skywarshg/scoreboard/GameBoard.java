@@ -43,7 +43,7 @@ public class GameBoard {
         obj.getScore("§7§m-----------------§f").setScore(10);
         obj.getScore("§8§o").setScore(9);
         obj.getScore("§a").setScore(8);
-        obj.getScore("§fGame Time: ").setScore(7);
+        obj.getScore("§fGame: ").setScore(7);
         obj.getScore("§fPlayers: ").setScore(6);
         obj.getScore("§f").setScore(5);
         obj.getScore("§fKills: ").setScore(4);
@@ -58,7 +58,7 @@ public class GameBoard {
         killsTeam.addEntry("§fKills: ");
         killsTeam.setSuffix("§c" + statsHandler.getKills(player));
 
-        gameTime.addEntry("§fGame Time: ");
+        gameTime.addEntry("§fGame: ");
         gameTime.setSuffix("§7"+ "Not Started...");
 
         mapTeam.addEntry("§fMap: ");
@@ -88,7 +88,6 @@ public class GameBoard {
         Team playersTeam = scoreboard.getTeam("players");
         Team mapTeam = scoreboard.getTeam("map");
         Team killsTeam = scoreboard.getTeam("kills");
-        Team gameTime = scoreboard.getTeam("gameTime");
         Team dateTeam = scoreboard.getTeam("date");
 
 
@@ -97,7 +96,6 @@ public class GameBoard {
 
         playersTeam.setSuffix("§a" + gameManager.getPlayerCount() + "§7/§a" + gameManager.getMaxPlayers());
         killsTeam.setSuffix("§c" + statsHandler.getKills(player));
-        //gameTime.setSuffix("§7" + gameTimeValue);
         mapTeam.setSuffix("§b" + "Soon");
     }
 }

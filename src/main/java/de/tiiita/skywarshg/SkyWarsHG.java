@@ -61,7 +61,7 @@ public final class SkyWarsHG extends JavaPlugin {
         registerListener(new SpectatorItemListener(spectatorHandler, gameManager, messagesConfig, this, getConfig()));
         registerListener(new KillListener(statsHandler, gameBoard, gameManager, messagesConfig, spectatorHandler));
         registerListener(new GamePhaseListener(gameManager, gameBoard, this, messagesConfig, getConfig()));
-        registerListener(new PlayerConnectionListener(gameManager, messagesConfig, gameBoard));
+        registerListener(new PlayerConnectionListener(gameManager, messagesConfig, gameBoard, this));
     }
 
     //Just for the clean code...

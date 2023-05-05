@@ -10,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.omg.CORBA.TIMEOUT;
 
+import java.util.logging.Level;
+
 /**
  * Created on Mai 05, 2023 | 19:17:29
  * (●'◡'●)
@@ -47,7 +49,7 @@ public class StartedPhase implements Listener {
         timer.eachSecond(() -> {
             String format = secondsToString(timer.getCounter());
             Bukkit.getOnlinePlayers().forEach(player -> {
-                gameBoard.updateScoreboardTimer(player, format);
+                Bukkit.getScheduler().runTask(plugin, () -> gameBoard.updateScoreboardTimer(player, format));
             });
         });
 
