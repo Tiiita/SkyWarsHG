@@ -5,3 +5,5 @@ quit-message: '%prefix%&f&l%player% &7left the game.' #Type ''  if you do not wa
 
 scoreboard-ip: '&eExample.com'
 need-more-players: '%prefix% &7We need &f%needed% &7more player(s) to start!'
+start-counting: '%prefix% &7The game starts in &f&l%seconds% &7second(s)!'
+start-complete: '%prefix% &7The game has been started.'

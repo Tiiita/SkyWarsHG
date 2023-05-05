@@ -1,3 +1,4 @@
 player-settings:
   max: 8
   min: 3
+start-counter: 5 #Seconds until game starts fully.

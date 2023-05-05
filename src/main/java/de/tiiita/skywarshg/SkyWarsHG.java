@@ -1,11 +1,10 @@
 package de.tiiita.skywarshg;
 
 import de.tiiita.skywarshg.command.StartCommand;
-import de.tiiita.skywarshg.game.GameListener;
+import de.tiiita.skywarshg.game.GamePhaseListener;
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.game.StatsHandler;
 import de.tiiita.skywarshg.game.phase.GamePhase;
-import de.tiiita.skywarshg.game.phase.impl.LobbyPhase;
 import de.tiiita.skywarshg.listener.PlayerConnectionListener;
 import de.tiiita.skywarshg.scoreboard.GameBoard;
 import de.tiiita.skywarshg.util.Config;
@@ -52,7 +51,7 @@ public final class SkyWarsHG extends JavaPlugin {
     }
     private void registerListeners() {
         registerListener(statsHandler);
-        registerListener(new GameListener());
+        registerListener(new GamePhaseListener(gameManager, gameBoard, this, messagesConfig, getConfig()));
         registerListener(new PlayerConnectionListener(gameManager, messagesConfig, gameBoard));
     }
 
