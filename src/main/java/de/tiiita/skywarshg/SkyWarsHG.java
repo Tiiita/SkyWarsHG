@@ -25,7 +25,7 @@ public final class SkyWarsHG extends JavaPlugin {
         this.messagesConfig = new Config("messages.yml", this);
         this.mapSavesConfig = new Config("mapsaves.yml", this);
 
-        this.gameManager = new GameManager();
+        this.gameManager = new GameManager(getConfig());
 
 
         registerListeners();
@@ -43,7 +43,7 @@ public final class SkyWarsHG extends JavaPlugin {
     }
     private void registerListeners() {
         registerListener(new GameListener());
-        registerListener(new PlayerConnectionListener(gameManager));
+        registerListener(new PlayerConnectionListener(gameManager, messagesConfig));
     }
 
     //Just for the clean code...

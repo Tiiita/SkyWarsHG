@@ -1,6 +1,5 @@
 package de.tiiita.skywarshg.util;
 
-import com.sun.istack.internal.NotNull;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -23,7 +22,7 @@ public class Config {
     private final FileConfiguration fileConfiguration;
     private final File file;
 
-    public Config(@NotNull String name, @NotNull Plugin plugin) {
+    public Config(String name, Plugin plugin) {
         this.plugin = plugin;
         plugin.saveResource(name, false);
         File path = plugin.getDataFolder();
