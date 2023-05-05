@@ -31,7 +31,7 @@ public class PlayerConnectionListener implements Listener {
         gameManager.addPlayer(player);
 
 
-        event.setJoinMessage(getFinalJoinMessage());
+        event.setJoinMessage(getFinalJoinMessage(player));
     }
 
 
@@ -39,26 +39,28 @@ public class PlayerConnectionListener implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         gameManager.removePlayer(player);
-        event.setQuitMessage(getFinalQuitMessage());
+        event.setQuitMessage(getFinalQuitMessage(player));
     }
 
 
-    private String getFinalJoinMessage() {
+    private String getFinalJoinMessage(Player joinPlayer) {
         String joinMessage = messagesConfig.getString("join-message");
         if (joinMessage.length() == 0) return null;
 
         return joinMessage
+                .replaceAll("%player%", joinPlayer.getName())
                 .replaceAll("%players%", "" + gameManager.getPlayerCount())
                 .replaceAll("%maxPlayers%", "" + gameManager.getMaxPlayers());
 
     }
 
 
-    private String getFinalQuitMessage() {
+    private String getFinalQuitMessage(Player quitPlayer) {
         String quitMessage = messagesConfig.getString("quit-message");
         if (quitMessage.length() == 0) return null;
 
         return quitMessage
+                .replaceAll("%player%", quitPlayer.getName())
                 .replaceAll("%players%", "" + gameManager.getPlayerCount())
                 .replaceAll("%maxPlayers%", "" + gameManager.getMaxPlayers());
 
