@@ -25,6 +25,8 @@ public class GamePhaseListener implements Listener {
     private final Plugin plugin;
     private final Config messagesConfig;
     private final FileConfiguration config;
+
+    private LobbyPhase lobbyPhase;
     private StartedPhase startedPhase;
 
     public GamePhaseListener(GameManager gameManager, GameBoard gameBoard, Plugin plugin, Config messagesConfig, FileConfiguration config) {
@@ -40,13 +42,14 @@ public class GamePhaseListener implements Listener {
         GamePhase gamePhase = event.getGamePhase();
         switch (gamePhase) {
             case LOBBY_PHASE: {
-                LobbyPhase phase = new LobbyPhase(gameManager, plugin, messagesConfig, config);
-                Bukkit.getPluginManager().registerEvents(phase, plugin);
-                phase.start();
+                this.lobbyPhase=  new LobbyPhase(gameManager, plugin, messagesConfig, config);
+                Bukkit.getPluginManager().registerEvents(lobbyPhase, plugin);
+                lobbyPhase.start();
                 break;
             }
 
             case STARTED: {
+                this.lobbyPhase.stop();
                 this.startedPhase = new StartedPhase(gameBoard, gameManager, plugin);
                 Bukkit.getPluginManager().registerEvents(startedPhase, plugin);
                 startedPhase.start();

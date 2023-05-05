@@ -104,8 +104,6 @@ public class LobbyPhase implements Listener {
             Bukkit.broadcastMessage(startedMessage);
             Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), Sound.LEVEL_UP, 10, 1));
             gameManager.setCurrentGamePhase(GamePhase.STARTED);
-            //Shut lobby phase down because another phase began
-            stop();
         });
 
     }
