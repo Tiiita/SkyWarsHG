@@ -3,6 +3,7 @@ package de.tiiita.skywarshg.spectator;
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.game.phase.GamePhase;
 import de.tiiita.skywarshg.util.Config;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
@@ -24,9 +25,10 @@ public class SpectatorHandler {
     }
 
     public void setSpectator(Player player) {
-       playersInSpectator.add(player);
-       player.setGameMode(GameMode.CREATIVE);
-       spectatorItems.apply(player);
+        playersInSpectator.add(player);
+        player.setGameMode(GameMode.CREATIVE);
+        spectatorItems.apply(player);
+        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.hidePlayer(player));
     }
 
     public boolean isSpectator(Player player) {

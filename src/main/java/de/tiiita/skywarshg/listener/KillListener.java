@@ -36,6 +36,7 @@ public class KillListener implements Listener {
         Player player = event.getEntity();
         Player killer = player.getKiller();
 
+        event.setDeathMessage(null);
         player.spigot().respawn();
         String killBroadcast;
         if (killer != null) {
