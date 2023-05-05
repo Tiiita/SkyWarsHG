@@ -3,6 +3,7 @@ package de.tiiita.skywarshg.listener;
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.scoreboard.GameBoard;
 import de.tiiita.skywarshg.util.Config;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,6 +35,8 @@ public class PlayerConnectionListener implements Listener {
         event.setJoinMessage(getFinalJoinMessage(player));
 
         gameBoard.setScoreboard(player);
+
+        Bukkit.getOnlinePlayers().forEach(gameBoard::updateScoreboard);
     }
 
 
@@ -42,6 +45,7 @@ public class PlayerConnectionListener implements Listener {
         Player player = event.getPlayer();
         gameManager.removePlayer(player);
         event.setQuitMessage(getFinalQuitMessage(player));
+        Bukkit.getOnlinePlayers().forEach(gameBoard::updateScoreboard);
     }
 
 

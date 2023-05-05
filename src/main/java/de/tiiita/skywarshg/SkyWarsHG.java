@@ -3,17 +3,18 @@ package de.tiiita.skywarshg;
 import de.tiiita.skywarshg.command.StartCommand;
 import de.tiiita.skywarshg.game.GameListener;
 import de.tiiita.skywarshg.game.GameManager;
+import de.tiiita.skywarshg.game.StatsHandler;
 import de.tiiita.skywarshg.listener.PlayerConnectionListener;
 import de.tiiita.skywarshg.scoreboard.GameBoard;
 import de.tiiita.skywarshg.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SkyWarsHG extends JavaPlugin {
     private Config messagesConfig;
     private Config mapSavesConfig;
+    private StatsHandler statsHandler;
     private GameBoard gameBoard;
     private GameManager gameManager;
     @Override
@@ -27,8 +28,9 @@ public final class SkyWarsHG extends JavaPlugin {
         this.messagesConfig = new Config("messages.yml", this);
         this.mapSavesConfig = new Config("mapsaves.yml", this);
 
+        this.statsHandler = new StatsHandler();
         this.gameManager = new GameManager(getConfig());
-        this.gameBoard = new GameBoard(gameManager, messagesConfig);
+        this.gameBoard = new GameBoard(gameManager, messagesConfig, statsHandler);
 
         registerListeners();
         registerCommands();

@@ -1,6 +1,7 @@
 package de.tiiita.skywarshg.scoreboard;
 
 import de.tiiita.skywarshg.game.GameManager;
+import de.tiiita.skywarshg.game.StatsHandler;
 import de.tiiita.skywarshg.util.Config;
 import de.tiiita.skywarshg.util.TimeUtil;
 import org.bukkit.Bukkit;
@@ -18,10 +19,12 @@ public class GameBoard {
 
     private final GameManager gameManager;
     private final Config messagesConfig;
+    private final StatsHandler statsHandler;
 
-    public GameBoard(GameManager gameManager, Config messagesConfig) {
+    public GameBoard(GameManager gameManager, Config messagesConfig, StatsHandler statsHandler) {
         this.gameManager = gameManager;
         this.messagesConfig = messagesConfig;
+        this.statsHandler = statsHandler;
     }
 
 
@@ -51,16 +54,16 @@ public class GameBoard {
         obj.getScore("§7§m--------------------§7").setScore(0);
 
         playersTeam.addEntry("§fPlayers: ");
-        playersTeam.setSuffix("§a" + gameManager.getMinPlayers() + "§7/§a" + gameManager.getMaxPlayers());
+        playersTeam.setSuffix("§a" + gameManager.getPlayerCount() + "§7/§a" + gameManager.getMaxPlayers());
 
         killsTeam.addEntry("§fKills: ");
-        killsTeam.setSuffix("§cSoon");
+        killsTeam.setSuffix("§c" + statsHandler.getKills(player));
 
         gameTime.addEntry("§fGame Time: ");
-        gameTime.setSuffix("§c" + "Soon");
+        gameTime.setSuffix("§7"+ "00:00");
 
         mapTeam.addEntry("§fMap: ");
-        mapTeam.setSuffix("§c" + "Soon");
+        mapTeam.setSuffix("§b" + "Soon");
 
         dateTeam.addEntry("§7§o ");
         String date = TimeUtil.getTimeInPattern("MM/dd/yyyy");
@@ -85,8 +88,8 @@ public class GameBoard {
         dateTeam.setSuffix("§7§o " + date);
 
         playersTeam.setSuffix("§a" + gameManager.getMinPlayers() + "§7/§a" + gameManager.getMaxPlayers());
-        killsTeam.setSuffix("§cSoon");
-        gameTime.setSuffix("§c" + "Soon");
+        killsTeam.setSuffix("§c" + statsHandler.getKills(player));
+        gameTime.setSuffix("§7" + "00:00");
         mapTeam.setSuffix("§c" + "Soon");
     }
 }
