@@ -11,9 +11,7 @@ import org.bukkit.command.CommandSender;
 public class StartCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-
-
+        sender.sendMessage("§cNot implemented yet..");
         return true;
     }
 }

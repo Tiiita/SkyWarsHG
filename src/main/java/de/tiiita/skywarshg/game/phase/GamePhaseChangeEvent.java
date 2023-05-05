@@ -15,6 +15,11 @@ public class GamePhaseChangeEvent extends Event {
     private GamePhase gamePhase;
     private GamePhase beforeGamePhase;
 
+    public GamePhaseChangeEvent(GamePhase gamePhase, GamePhase beforeGamePhase) {
+        this.gamePhase = gamePhase;
+        this.beforeGamePhase = beforeGamePhase;
+    }
+
     public GamePhase getGamePhase() {
         return gamePhase;
     }

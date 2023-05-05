@@ -1,6 +1,8 @@
 package de.tiiita.skywarshg.game;
 
 import de.tiiita.skywarshg.game.phase.GamePhase;
+import de.tiiita.skywarshg.game.phase.GamePhaseChangeEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerKickEvent;
 
@@ -25,6 +27,8 @@ public class GameManager {
     }
 
     public void setCurrentGamePhase(GamePhase gamePhase) {
+        //Current "currentGamePhase" has not changed yet. The "gamePhase" is the new one.
+        Bukkit.getPluginManager().callEvent(new GamePhaseChangeEvent(currentGamePhase, gamePhase));
         this.currentGamePhase = gamePhase;
     }
 
