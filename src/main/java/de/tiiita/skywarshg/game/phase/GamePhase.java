@@ -6,8 +6,7 @@ package de.tiiita.skywarshg.game.phase;
  */
 public enum GamePhase {
 
-    PLAYER_WAITING,
-    COUNTING,
+    LOBBY_PHASE,
     START,
     LAST_TWO_PLAYERS,
     WINNING;

@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class GameManager {
     private final List<Player> players = new ArrayList<>();
-    private GamePhase currentGamePhase = GamePhase.PLAYER_WAITING;
+    private GamePhase currentGamePhase = GamePhase.LOBBY_PHASE;
     private final FileConfiguration config;
 
     public GameManager(FileConfiguration config) {

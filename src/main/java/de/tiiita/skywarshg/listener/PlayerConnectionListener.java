@@ -37,20 +37,6 @@ public class PlayerConnectionListener implements Listener {
 
         gameBoard.setScoreboard(player);
         Bukkit.getOnlinePlayers().forEach(gameBoard::updateScoreboard);
-
-        int currentPlayerCount = gameManager.getPlayerCount();
-        int playerCountToStart = gameManager.getMinPlayers();
-        if (currentPlayerCount >= playerCountToStart) {
-            gameManager.setCurrentGamePhase(GamePhase.COUNTING);
-        } else {
-            Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.NOTE_STICKS, 10, 1));
-
-            int neededPlayers = playerCountToStart - currentPlayerCount;
-
-            String morePlayersNeeded = messagesConfig.getString("need-more-players")
-                    .replaceAll("%needed%", "" + neededPlayers);
-            Bukkit.broadcastMessage(morePlayersNeeded);
-        }
     }
 
 
@@ -60,10 +46,6 @@ public class PlayerConnectionListener implements Listener {
         gameManager.removePlayer(player);
         event.setQuitMessage(getFinalQuitMessage(player));
         Bukkit.getOnlinePlayers().forEach(gameBoard::updateScoreboard);
-
-
-
-
     }
 
 

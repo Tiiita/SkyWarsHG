@@ -4,6 +4,8 @@ import de.tiiita.skywarshg.command.StartCommand;
 import de.tiiita.skywarshg.game.GameListener;
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.game.StatsHandler;
+import de.tiiita.skywarshg.game.phase.GamePhase;
+import de.tiiita.skywarshg.game.phase.impl.LobbyPhase;
 import de.tiiita.skywarshg.listener.PlayerConnectionListener;
 import de.tiiita.skywarshg.scoreboard.GameBoard;
 import de.tiiita.skywarshg.util.Config;
@@ -34,6 +36,9 @@ public final class SkyWarsHG extends JavaPlugin {
 
         registerListeners();
         registerCommands();
+
+
+        gameManager.setCurrentGamePhase(GamePhase.LOBBY_PHASE);
     }
 
     @Override

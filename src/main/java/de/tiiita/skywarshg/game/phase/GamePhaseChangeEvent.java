@@ -12,8 +12,8 @@ import java.awt.*;
  */
 public class GamePhaseChangeEvent extends Event {
     private static final HandlerList HANDLERS_LIST = new HandlerList();
-    private GamePhase gamePhase;
-    private GamePhase beforeGamePhase;
+    private final GamePhase gamePhase;
+    private final GamePhase beforeGamePhase;
 
     public GamePhaseChangeEvent(GamePhase gamePhase, GamePhase beforeGamePhase) {
         this.gamePhase = gamePhase;

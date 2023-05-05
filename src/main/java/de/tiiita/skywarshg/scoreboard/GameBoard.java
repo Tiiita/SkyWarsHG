@@ -71,7 +71,7 @@ public class GameBoard {
         player.setScoreboard(scoreboard);
     }
 
-    public void updateScoreboard(Player player) {
+    public void updateScoreboard(Player player, String gameTimeValue) {
         Scoreboard scoreboard = player.getScoreboard();
         if (scoreboard == null) {
             setScoreboard(player);
@@ -89,7 +89,7 @@ public class GameBoard {
 
         playersTeam.setSuffix("§a" + gameManager.getPlayerCount() + "§7/§a" + gameManager.getMaxPlayers());
         killsTeam.setSuffix("§c" + statsHandler.getKills(player));
-        gameTime.setSuffix("§7" + "00:00");
+        gameTime.setSuffix("§7" + gameTimeValue);
         mapTeam.setSuffix("§b" + "Soon");
     }
 }
