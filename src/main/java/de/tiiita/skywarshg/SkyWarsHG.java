@@ -27,6 +27,7 @@ public final class SkyWarsHG extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
 
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         //This is for the config.yml
         saveDefaultConfig();
 
