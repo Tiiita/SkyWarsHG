@@ -29,7 +29,7 @@ public class GameManager {
     }
 
     public void removePlayer(Player player) {
-        players.add(player);
+        players.remove(player);
     }
 
     public void setCurrentGamePhase(GamePhase gamePhase) {
