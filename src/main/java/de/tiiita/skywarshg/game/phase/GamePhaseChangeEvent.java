@@ -30,7 +30,7 @@ public class GamePhaseChangeEvent extends Event {
 
     @Override
     public HandlerList getHandlers() {
-        return null;
+        return HANDLERS_LIST;
     }
 
     public static HandlerList getHandlerList() {
