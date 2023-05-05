@@ -29,7 +29,7 @@ public class PlayerConnectionListener implements Listener {
         this.gameBoard = gameBoard;
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         gameManager.addPlayer(player);
@@ -40,7 +40,7 @@ public class PlayerConnectionListener implements Listener {
     }
 
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         gameManager.removePlayer(player);

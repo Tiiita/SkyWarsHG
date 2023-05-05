@@ -20,7 +20,6 @@ public class GameBoard {
     private final GameManager gameManager;
     private final Config messagesConfig;
     private final StatsHandler statsHandler;
-
     public GameBoard(GameManager gameManager, Config messagesConfig, StatsHandler statsHandler) {
         this.gameManager = gameManager;
         this.messagesConfig = messagesConfig;
@@ -60,7 +59,7 @@ public class GameBoard {
         killsTeam.setSuffix("§c" + statsHandler.getKills(player));
 
         gameTime.addEntry("§fGame Time: ");
-        gameTime.setSuffix("§7"+ "/");
+        gameTime.setSuffix("§7"+ "Not Started...");
 
         mapTeam.addEntry("§fMap: ");
         mapTeam.setSuffix("§b" + "Soon");

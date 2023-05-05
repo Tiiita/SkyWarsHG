@@ -7,11 +7,15 @@ import de.tiiita.skywarshg.util.Timer;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
+
+import java.util.logging.Level;
 
 /**
  * Created on Mai 05, 2023 | 18:47:25
@@ -37,32 +41,43 @@ public class LobbyPhase implements Listener {
         this.phaseActivated = true;
     }
 
-    @EventHandler
+    public void stop() {
+        this.phaseActivated = false;
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
         if (!phaseActivated) return;
+        Player player = event.getPlayer();
+        if (!gameManager.getCurrentGamePhase().equals(GamePhase.LOBBY_PHASE)) {
+            String kickMessage = messagesConfig.getString("kick-message");
+            player.kickPlayer(kickMessage);
+            return;
+        }
+
+
         int currentPlayerCount = gameManager.getPlayerCount();
         int playerCountToStart = gameManager.getMinPlayers();
 
         if (currentPlayerCount >= playerCountToStart) {
             startCounting();
         } else {
-            if (currentPlayerCount > 1) {
-                Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.NOTE_BASS, 10, 1));
-                int neededPlayers = playerCountToStart - currentPlayerCount;
+            Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.NOTE_BASS, 10, 1));
+            int neededPlayers = playerCountToStart - currentPlayerCount;
 
-                String morePlayersNeeded = messagesConfig.getString("need-more-players")
-                        .replaceAll("%needed%", "" + neededPlayers);
-                Bukkit.broadcastMessage(morePlayersNeeded);
-            }
+            String morePlayersNeeded = messagesConfig.getString("need-more-players").replaceAll("%needed%", "" + neededPlayers);
+            Bukkit.broadcastMessage(morePlayersNeeded);
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onQuit(PlayerQuitEvent event) {
         int currentPlayerCount = gameManager.getPlayerCount();
         int playerCountToStart = gameManager.getMinPlayers();
 
-
+        if (currentPlayerCount < playerCountToStart) {
+            stopCounting();
+        }
     }
 
 
@@ -82,14 +97,20 @@ public class LobbyPhase implements Listener {
             Bukkit.broadcastMessage(startedMessage);
             Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), Sound.LEVEL_UP, 10, 1));
             gameManager.setCurrentGamePhase(GamePhase.STARTED);
+            stop(); //Stop the lobby phase because a new began
         });
 
     }
+
     private void stopCounting() {
+        if (!phaseActivated) return;
         if (this.startTimer != null) {
             this.startTimer.stop();
+            int currentPlayerCount = gameManager.getPlayerCount();
+            int playerCountToStart = gameManager.getMinPlayers();
+            int neededPlayers = playerCountToStart - currentPlayerCount;
 
-            String needMorePlayers = messagesConfig.getString("need-more-players");
+            String needMorePlayers = messagesConfig.getString("need-more-players").replaceAll("%needed%", "" + neededPlayers);
             Bukkit.broadcastMessage(needMorePlayers);
             Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), Sound.NOTE_BASS, 10, 1));
         }

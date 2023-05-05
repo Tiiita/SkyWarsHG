@@ -15,11 +15,6 @@ import java.util.HashMap;
 public class StatsHandler implements Listener {
     private final HashMap<Player, Integer> playerKillsMap = new HashMap<>();
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        playerKillsMap.put(event.getPlayer(), 0);
-    }
-
     public void addKill(Player player) {
         if (playerKillsMap.get(player) == null) {
             throw new NullArgumentException("Could not add kill to player. Player is null");
@@ -32,5 +27,10 @@ public class StatsHandler implements Listener {
 
     public int getKills(Player player) {
         return playerKillsMap.get(player);
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        playerKillsMap.put(event.getPlayer(), 0);
     }
 }
