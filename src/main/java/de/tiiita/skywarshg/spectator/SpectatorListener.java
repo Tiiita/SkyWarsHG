@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -33,26 +34,32 @@ public class SpectatorListener implements Listener {
     }
 
     @EventHandler
-    public void onBlockPlace(BlockBreakEvent event) {
+    public void onBlockBreak(BlockBreakEvent event) {
         if (spectatorHandler.isSpectator(event.getPlayer())) event.setCancelled(true);
     }
     @EventHandler
-    public void onBlockPlace(PlayerDropItemEvent event) {
+    public void onItemDrop(PlayerDropItemEvent event) {
         if (spectatorHandler.isSpectator(event.getPlayer())) event.setCancelled(true);
     }
     @EventHandler
-    public void onBlockPlace(PlayerPickupItemEvent event) {
+    public void onItemPickup(PlayerPickupItemEvent event) {
         if (spectatorHandler.isSpectator(event.getPlayer())) event.setCancelled(true);
     }
 
     @EventHandler
-    public void onBlockPlace(EntityDamageByEntityEvent event) {
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        if (spectatorHandler.isSpectator((Player) event.getWhoClicked())) event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onEntityDamage(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
             if (spectatorHandler.isSpectator((Player) event.getDamager())) event.setCancelled(true);
         }
     }
     @EventHandler
-    public void onBlockPlace(AsyncPlayerChatEvent event) {
+    public void onChat(AsyncPlayerChatEvent event) {
         if (spectatorHandler.isSpectator(event.getPlayer())) {
             event.getPlayer().sendMessage(messagesConfig.getString("cannot-chat"));
             event.setCancelled(true);

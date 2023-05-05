@@ -2,6 +2,7 @@ package de.tiiita.skywarshg.spectator;
 
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.util.Actions;
+import de.tiiita.skywarshg.util.Config;
 import de.tiiita.skywarshg.util.ItemBuilder;
 import de.tiiita.skywarshg.util.PlayerUtil;
 import org.bukkit.Bukkit;
@@ -28,15 +29,18 @@ import java.util.stream.Collectors;
 public class SpectatorItemListener implements Listener {
     private final SpectatorHandler spectatorHandler;
     private final GameManager gameManager;
+    private final Config messagesConfig;
     private final Plugin plugin;
     private final FileConfiguration config;
 
-    public SpectatorItemListener(SpectatorHandler spectatorHandler, GameManager gameManager, Plugin plugin, FileConfiguration config) {
+    public SpectatorItemListener(SpectatorHandler spectatorHandler, GameManager gameManager, Config messagesConfig, Plugin plugin, FileConfiguration config) {
         this.spectatorHandler = spectatorHandler;
         this.gameManager = gameManager;
+        this.messagesConfig = messagesConfig;
         this.plugin = plugin;
         this.config = config;
     }
+
 
 
     @EventHandler
@@ -47,7 +51,7 @@ public class SpectatorItemListener implements Listener {
         if (!event.getItem().equals(spectatorHandler.getSpectatorItems().teleporter())) return;
         if (!Actions.isRightClick(event.getAction())) return;
 
-        Inventory inventory = Bukkit.createInventory(null, 54, "§8Online: " + Bukkit.getOnlinePlayers().size());
+        Inventory inventory = Bukkit.createInventory(null, 54);
 
         for (int i = 0; i < inventory.getSize(); i++) {
             inventory.setItem(i, backgroundItem());
@@ -104,19 +108,15 @@ public class SpectatorItemListener implements Listener {
         Player target = Bukkit.getPlayer(((SkullMeta) event.getCurrentItem().getItemMeta()).getOwner());
 
         if (target == null) {
-            player.sendMessage("§cPlayer not found!");
             return;
         }
 
         event.setCancelled(true);
 
-        if (player.equals(target)) {
-            player.sendMessage("§7» You cannot teleport to yourself.");
-            return;
-        }
-
         player.teleport(target.getLocation());
-        player.sendMessage("§7» Teleported to §c" + target.getName() + "§7.");
+        String teleportMessage = messagesConfig.getString("teleported-to")
+                        .replaceAll("%player%", target.getName());
+        player.sendMessage(teleportMessage);
     }
 
     @EventHandler

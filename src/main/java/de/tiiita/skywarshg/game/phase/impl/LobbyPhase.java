@@ -11,7 +11,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
@@ -97,7 +103,10 @@ public class LobbyPhase implements Listener {
             Bukkit.broadcastMessage(startedMessage);
             Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), Sound.LEVEL_UP, 10, 1));
             gameManager.setCurrentGamePhase(GamePhase.STARTED);
-            stop(); //Stop the lobby phase because a new began
+
+            //Shut lobby phase down because another phase began
+            stopCounting();
+            stop();
         });
 
     }
@@ -113,6 +122,37 @@ public class LobbyPhase implements Listener {
             String needMorePlayers = messagesConfig.getString("need-more-players").replaceAll("%needed%", "" + neededPlayers);
             Bukkit.broadcastMessage(needMorePlayers);
             Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), Sound.NOTE_BASS, 10, 1));
+        }
+    }
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+        if (!phaseActivated) return;
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event) {
+        if (!phaseActivated) return;
+        event.setCancelled(true);
+    }
+    @EventHandler
+    public void onItemDrop(PlayerDropItemEvent event) {
+        if (!phaseActivated) return;
+        event.setCancelled(true);
+    }
+    @EventHandler
+    public void onItemPickup(PlayerPickupItemEvent event) {
+        if (!phaseActivated) return;
+        event.setCancelled(true);
+    }
+
+
+    @EventHandler
+    public void onEntityDamage(EntityDamageByEntityEvent event) {
+        if (!phaseActivated) return;
+        if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
+            event.setCancelled(true);
         }
     }
 }

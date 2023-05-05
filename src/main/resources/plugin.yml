@@ -7,3 +7,4 @@ description: A HardcodeGames Mode mixed with SkyWars. Jump down like in SkyWars 
 
 commands:
   start:
+  configure:

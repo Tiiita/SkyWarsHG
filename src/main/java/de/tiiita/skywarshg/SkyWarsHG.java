@@ -53,7 +53,7 @@ public final class SkyWarsHG extends JavaPlugin {
 
 
     private void registerCommands() {
-        getCommand("start").setExecutor(new StartCommand());
+        getCommand("start").setExecutor(new StartCommand(gameManager, messagesConfig, getConfig()));
     }
     private void registerListeners() {
         registerListener(statsHandler);
