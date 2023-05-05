@@ -38,16 +38,16 @@ public class GameBoard {
         Team gameTime = scoreboard.registerNewTeam("gameTime");
         Team dateTeam = scoreboard.registerNewTeam("date");
 
-        obj.getScore("§7§m--------------------§f").setScore(0);
-        obj.getScore("§7§o ").setScore(0);
-        obj.getScore("§a").setScore(0);
-        obj.getScore("§fGame Time: ").setScore(0);
-        obj.getScore("§fPlayers: ").setScore(0);
-        obj.getScore("§f").setScore(0);
-        obj.getScore("§fKills: ").setScore(0);
-        obj.getScore("§fMap: ").setScore(0);
-        obj.getScore("§e").setScore(0);
-        obj.getScore(messagesConfig.getString("scoreboard-ip")).setScore(0);
+        obj.getScore("§7§m--------------------§f").setScore(10);
+        obj.getScore("§7§o ").setScore(9);
+        obj.getScore("§a").setScore(8);
+        obj.getScore("§fGame Time: ").setScore(7);
+        obj.getScore("§fPlayers: ").setScore(6);
+        obj.getScore("§f").setScore(5);
+        obj.getScore("§fKills: ").setScore(4);
+        obj.getScore("§fMap: ").setScore(3);
+        obj.getScore("§e").setScore(2);
+        obj.getScore(messagesConfig.getString("scoreboard-ip")).setScore(1);
         obj.getScore("§7§m--------------------§7").setScore(0);
 
         playersTeam.addEntry("§fPlayers: ");

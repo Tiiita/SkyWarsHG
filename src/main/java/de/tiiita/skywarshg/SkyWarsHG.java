@@ -28,7 +28,7 @@ public final class SkyWarsHG extends JavaPlugin {
         this.mapSavesConfig = new Config("mapsaves.yml", this);
 
         this.gameManager = new GameManager(getConfig());
-        this.gameBoard = new GameBoard(gameManager);
+        this.gameBoard = new GameBoard(gameManager, messagesConfig);
 
         registerListeners();
         registerCommands();
