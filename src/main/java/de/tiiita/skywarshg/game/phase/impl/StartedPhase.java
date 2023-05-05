@@ -5,4 +5,7 @@ package de.tiiita.skywarshg.game.phase.impl;
  * (●'◡'●)
  */
 public class StartedPhase {
+
+
+
 }

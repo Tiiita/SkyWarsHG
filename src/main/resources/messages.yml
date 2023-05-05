@@ -1,10 +1,21 @@
 prefix: '&f&lSWHG &8| '
 
+#General
+scoreboard-ip: '&eExample.com'
 kick-message: '&cThe game has already started...'
+
+#Start
 join-message: '%prefix%&f&l%player% &7joined the game. (&a%players%&7/&a%maxPlayers%&7)' #Type ''  if you do not want any message.
 quit-message: '%prefix%&f&l%player% &7left the game.' #Type ''  if you do not want any message.
-
-scoreboard-ip: '&eExample.com'
 need-more-players: '%prefix% &7We need &f%needed% &7more player(s) to start!'
 start-counting: '%prefix% &7The game starts in &f&l%seconds% &7second(s)!'
 start-complete: '%prefix% &7The game has been started.'
+
+#Game
+kill-message: '%prefix% &f%player% &7has been killed by &f%killer%&7.'
+die-message: '%prefix% &f%player% &7died.'
+
+#Spectator
+teleporter: '&f&lTeleporter'
+leave: '&f&lLeave'
+cannot-chat: '%prefix% &cYou cannot chat in the spectator mode.'

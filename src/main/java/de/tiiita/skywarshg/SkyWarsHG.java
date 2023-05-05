@@ -8,6 +8,9 @@ import de.tiiita.skywarshg.game.phase.GamePhase;
 import de.tiiita.skywarshg.listener.KillListener;
 import de.tiiita.skywarshg.listener.PlayerConnectionListener;
 import de.tiiita.skywarshg.scoreboard.GameBoard;
+import de.tiiita.skywarshg.spectator.SpectatorHandler;
+import de.tiiita.skywarshg.spectator.SpectatorItemListener;
+import de.tiiita.skywarshg.spectator.SpectatorListener;
 import de.tiiita.skywarshg.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -17,6 +20,7 @@ public final class SkyWarsHG extends JavaPlugin {
     private Config messagesConfig;
     private Config mapSavesConfig;
     private StatsHandler statsHandler;
+    private SpectatorHandler spectatorHandler;
     private GameBoard gameBoard;
     private GameManager gameManager;
     @Override
@@ -33,7 +37,7 @@ public final class SkyWarsHG extends JavaPlugin {
         this.statsHandler = new StatsHandler();
         this.gameManager = new GameManager(getConfig());
         this.gameBoard = new GameBoard(gameManager, messagesConfig, statsHandler);
-
+        this.spectatorHandler = new SpectatorHandler(messagesConfig);
         registerListeners();
         registerCommands();
 
@@ -52,7 +56,9 @@ public final class SkyWarsHG extends JavaPlugin {
     }
     private void registerListeners() {
         registerListener(statsHandler);
-        registerListener(new KillListener(statsHandler, gameBoard));
+        registerListener(new SpectatorListener(spectatorHandler, messagesConfig));
+        registerListener(new SpectatorItemListener(spectatorHandler, gameManager, this, getConfig()));
+        registerListener(new KillListener(statsHandler, gameBoard, gameManager, messagesConfig, spectatorHandler));
         registerListener(new GamePhaseListener(gameManager, gameBoard, this, messagesConfig, getConfig()));
         registerListener(new PlayerConnectionListener(gameManager, messagesConfig, gameBoard));
     }

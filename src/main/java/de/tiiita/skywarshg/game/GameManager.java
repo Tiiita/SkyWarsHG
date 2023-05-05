@@ -6,17 +6,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerKickEvent;
+import sun.util.resources.cldr.zh.CalendarData_zh_Hans_HK;
 
 import javax.print.attribute.standard.PrinterLocation;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created on Mai 05, 2023 | 15:03:55
  * (●'◡'●)
  */
 public class GameManager {
-    private final List<Player> players = new ArrayList<>();
+    private final Set<Player> players = new HashSet<>();
     private GamePhase currentGamePhase = GamePhase.LOBBY_PHASE;
     private final FileConfiguration config;
 
@@ -40,6 +43,10 @@ public class GameManager {
 
     public int getMaxPlayers() {
         return config.getInt("player-settings.max");
+    }
+
+    public Set<Player> getPlayers() {
+        return new HashSet<>(players);
     }
 
     public int getMinPlayers() {
