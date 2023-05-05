@@ -1,6 +1,7 @@
 package de.tiiita.skywarshg.listener;
 
 import de.tiiita.skywarshg.game.GameManager;
+import de.tiiita.skywarshg.scoreboard.GameBoard;
 import de.tiiita.skywarshg.util.Config;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,22 +17,23 @@ public class PlayerConnectionListener implements Listener {
 
     private final GameManager gameManager;
     private final Config messagesConfig;
+    private final GameBoard gameBoard;
 
-    public PlayerConnectionListener(GameManager gameManager, Config messagesConfig) {
+    public PlayerConnectionListener(GameManager gameManager, Config messagesConfig, GameBoard gameBoard) {
         this.gameManager = gameManager;
         this.messagesConfig = messagesConfig;
+        this.gameBoard = gameBoard;
     }
+
 
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-
-
         gameManager.addPlayer(player);
-
-
         event.setJoinMessage(getFinalJoinMessage(player));
+
+        gameBoard.setScoreboard(player);
     }
 
 
