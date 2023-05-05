@@ -1,9 +1,11 @@
 package de.tiiita.skywarshg.listener;
 
 import de.tiiita.skywarshg.game.GameManager;
+import de.tiiita.skywarshg.game.phase.GamePhase;
 import de.tiiita.skywarshg.scoreboard.GameBoard;
 import de.tiiita.skywarshg.util.Config;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +29,6 @@ public class PlayerConnectionListener implements Listener {
     }
 
 
-
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -35,8 +36,21 @@ public class PlayerConnectionListener implements Listener {
         event.setJoinMessage(getFinalJoinMessage(player));
 
         gameBoard.setScoreboard(player);
-
         Bukkit.getOnlinePlayers().forEach(gameBoard::updateScoreboard);
+
+        int currentPlayerCount = gameManager.getPlayerCount();
+        int playerCountToStart = gameManager.getMinPlayers();
+        if (currentPlayerCount >= playerCountToStart) {
+            gameManager.setCurrentGamePhase(GamePhase.COUNTING);
+        } else {
+            Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.NOTE_STICKS, 10, 1));
+
+            int neededPlayers = playerCountToStart - currentPlayerCount;
+
+            String morePlayersNeeded = messagesConfig.getString("need-more-players")
+                    .replaceAll("%needed%", "" + neededPlayers);
+            Bukkit.broadcastMessage(morePlayersNeeded);
+        }
     }
 
 
@@ -46,6 +60,10 @@ public class PlayerConnectionListener implements Listener {
         gameManager.removePlayer(player);
         event.setQuitMessage(getFinalQuitMessage(player));
         Bukkit.getOnlinePlayers().forEach(gameBoard::updateScoreboard);
+
+
+
+
     }
 
 

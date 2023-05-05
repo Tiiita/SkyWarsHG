@@ -1,6 +1,7 @@
-prefix: '&f&lSWHG&8 » '
+prefix: '&f&lSWHG&8 => '
 
 join-message: '%prefix%&f&l%player% &7joined the game. (&a%players%&7/&a%maxPlayers%&7)' #Type ''  if you do not want any message.
 quit-message: '%prefix%&f&l%player% &7left the game.' #Type ''  if you do not want any message.
 
 scoreboard-ip: '&eExample.com'
+need-more-players: '%prefix% &7We need &f%needed% &7more player(s) to start!'
