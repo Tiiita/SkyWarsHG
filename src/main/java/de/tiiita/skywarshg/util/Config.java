@@ -73,11 +73,10 @@ public class Config {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
-    public String getString(String path, boolean withPrefix) {
+    public String getString(String path) {
         String string = getRawString(path);
         String prefix = color(getRawString("prefix"));
-        if (withPrefix) return prefix + string;
-        return string;
+        return string.replaceAll("%prefix%", prefix);
     }
 
     public String getRawString(String path) {
