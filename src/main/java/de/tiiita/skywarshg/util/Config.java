@@ -73,7 +73,7 @@ public class Config {
     }
 
     public String getString(String path) {
-        String string = getRawString(path);
+        String string = color(getRawString(path));
         String prefix = color(getRawString("prefix"));
         return string.replaceAll("%prefix%", prefix);
     }
