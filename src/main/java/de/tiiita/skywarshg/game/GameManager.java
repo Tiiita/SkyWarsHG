@@ -22,6 +22,7 @@ public class GameManager {
     private final Set<Player> players = new HashSet<>();
     private GamePhase currentGamePhase = GamePhase.LOBBY_PHASE;
     private final FileConfiguration config;
+    private boolean currentlyCounting;
 
     public GameManager(FileConfiguration config) {
         this.config = config;
@@ -37,7 +38,8 @@ public class GameManager {
 
     public void setCurrentGamePhase(GamePhase gamePhase) {
         //Current "currentGamePhase" has not changed yet. The "gamePhase" is the new one.
-        Bukkit.getPluginManager().callEvent(new GamePhaseChangeEvent(currentGamePhase, gamePhase));
+        Bukkit.getPluginManager().callEvent(new GamePhaseChangeEvent(gamePhase, currentGamePhase));
+
         this.currentGamePhase = gamePhase;
     }
 
@@ -58,5 +60,13 @@ public class GameManager {
 
     public GamePhase getCurrentGamePhase() {
         return currentGamePhase;
+    }
+
+    public boolean isCurrentlyCounting() {
+        return currentlyCounting;
+    }
+
+    public void setCurrentlyCounting(boolean currentlyCounting) {
+        this.currentlyCounting = currentlyCounting;
     }
 }

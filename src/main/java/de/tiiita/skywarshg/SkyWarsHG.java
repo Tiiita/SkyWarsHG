@@ -1,5 +1,6 @@
 package de.tiiita.skywarshg;
 
+import de.tiiita.skywarshg.command.ConfigureCommand;
 import de.tiiita.skywarshg.command.StartCommand;
 import de.tiiita.skywarshg.game.GamePhaseListener;
 import de.tiiita.skywarshg.game.GameManager;
@@ -54,6 +55,7 @@ public final class SkyWarsHG extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("start").setExecutor(new StartCommand(gameManager, messagesConfig, getConfig()));
+        getCommand("configure").setExecutor(new ConfigureCommand());
     }
     private void registerListeners() {
         registerListener(statsHandler);

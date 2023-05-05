@@ -39,6 +39,12 @@ public class StartCommand implements CommandExecutor {
         }
 
         if (args.length == 0) {
+            if (gameManager.isCurrentlyCounting()) {
+                String cannotDoThatMessage = messagesConfig.getString("command.start.cannot-start");
+                player.sendMessage(cannotDoThatMessage);
+                return true;
+            }
+
             if (gameManager.getPlayerCount() < 2) {
                 String notEnoughPlayers = messagesConfig.getString("start-command-not-enough");
                 player.sendMessage(notEnoughPlayers);
@@ -47,7 +53,7 @@ public class StartCommand implements CommandExecutor {
             gameManager.setCurrentGamePhase(GamePhase.STARTED);
             Bukkit.broadcastMessage(messagesConfig.getString("force-start-broadcast"));
         } else {
-            String usage = messagesConfig.getString("command.start.usage");
+            String usage = config.getString("command.start.usage");
             player.sendMessage(usage);
         }
         return true;

@@ -33,7 +33,6 @@ public class GamePhaseListener implements Listener {
         this.plugin = plugin;
         this.messagesConfig = messagesConfig;
         this.config = config;
-        plugin.getLogger().log(Level.SEVERE, "Started");
     }
 
     @EventHandler
@@ -50,8 +49,6 @@ public class GamePhaseListener implements Listener {
             case STARTED: {
                 this.startedPhase = new StartedPhase(gameBoard, gameManager, plugin);
                 Bukkit.getPluginManager().registerEvents(startedPhase, plugin);
-
-                plugin.getLogger().log(Level.SEVERE, "Start");
                 startedPhase.start();
                 break;
             }

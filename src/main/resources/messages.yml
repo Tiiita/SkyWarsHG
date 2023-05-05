@@ -1,3 +1,7 @@
+#!!!
+#Command messages are in the config.yml (where the command settings are)
+#!!!
+
 prefix: '&f&lSWHG &8| '
 
 #General

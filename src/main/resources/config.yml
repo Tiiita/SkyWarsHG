@@ -1,7 +1,7 @@
 #Start Phase settings
 player-settings:
   max: 8
-  min: 2
+  min: 3
 start-counter: 5 #Seconds until game starts fully.
 
 #Move Back
@@ -11,6 +11,7 @@ move-back-lobby: 'YourLobbyNameHere' #Please set up this. It is used for the spe
 command:
   start:
     usage: '%prefix% &7Use: &f/start &7| Force start the game (min. 2 players).'
+    cannot-start: '%prefix% &cYou cannot start the game now!'
     permission: 'skywarshg.forcestart'
   configure:
     usage: '%prefix% &7Use: &f/configure &7| Switch to configure mode.'

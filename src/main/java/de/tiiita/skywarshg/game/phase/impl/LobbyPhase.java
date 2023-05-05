@@ -92,6 +92,7 @@ public class LobbyPhase implements Listener {
         final String countingMessage = messagesConfig.getString("start-counting");
         final String startedMessage = messagesConfig.getString("start-complete");
 
+        gameManager.setCurrentlyCounting(true);
         this.startTimer = new Timer(seconds, plugin);
         startTimer.start();
         startTimer.eachSecond(() -> {
@@ -103,7 +104,6 @@ public class LobbyPhase implements Listener {
             Bukkit.broadcastMessage(startedMessage);
             Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), Sound.LEVEL_UP, 10, 1));
             gameManager.setCurrentGamePhase(GamePhase.STARTED);
-
             //Shut lobby phase down because another phase began
             stop();
         });
@@ -114,6 +114,7 @@ public class LobbyPhase implements Listener {
         if (!phaseActivated) return;
         if (this.startTimer != null) {
             this.startTimer.stop();
+            gameManager.setCurrentlyCounting(false);
             int currentPlayerCount = gameManager.getPlayerCount();
             int playerCountToStart = gameManager.getMinPlayers();
             int neededPlayers = playerCountToStart - currentPlayerCount;
