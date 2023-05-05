@@ -41,8 +41,8 @@ public class GameBoard {
         Team gameTime = scoreboard.registerNewTeam("gameTime");
         Team dateTeam = scoreboard.registerNewTeam("date");
 
-        obj.getScore("§7§m--------------------§f").setScore(10);
-        obj.getScore("§7§o ").setScore(9);
+        obj.getScore("§7§m-----------------§f").setScore(10);
+        obj.getScore("§8§o  ").setScore(9);
         obj.getScore("§a").setScore(8);
         obj.getScore("§fGame Time: ").setScore(7);
         obj.getScore("§fPlayers: ").setScore(6);
@@ -51,7 +51,7 @@ public class GameBoard {
         obj.getScore("§fMap: ").setScore(3);
         obj.getScore("§e").setScore(2);
         obj.getScore(messagesConfig.getString("scoreboard-ip")).setScore(1);
-        obj.getScore("§7§m--------------------§7").setScore(0);
+        obj.getScore("§7§m-----------------§7").setScore(0);
 
         playersTeam.addEntry("§fPlayers: ");
         playersTeam.setSuffix("§a" + gameManager.getPlayerCount() + "§7/§a" + gameManager.getMaxPlayers());
@@ -85,11 +85,11 @@ public class GameBoard {
 
 
         String date = TimeUtil.getTimeInPattern("MM/dd/yyyy");
-        dateTeam.setSuffix("§7§o " + date);
+        dateTeam.setSuffix("§8§o  " + date);
 
         playersTeam.setSuffix("§a" + gameManager.getMinPlayers() + "§7/§a" + gameManager.getMaxPlayers());
         killsTeam.setSuffix("§c" + statsHandler.getKills(player));
         gameTime.setSuffix("§7" + "00:00");
-        mapTeam.setSuffix("§c" + "Soon");
+        mapTeam.setSuffix("§b" + "Soon");
     }
 }
