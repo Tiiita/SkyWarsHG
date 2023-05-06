@@ -55,10 +55,9 @@ public class PlayerConnectionListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        if (!gameManager.getCurrentGamePhase().equals(GamePhase.LOBBY_PHASE)) {
-            event.setQuitMessage(null);
-            return;
-        }
+        if (gameManager.getCurrentGamePhase().equals(GamePhase.LOBBY_PHASE)) {
+            event.setQuitMessage(getFinalQuitMessage(player));
+        } else event.setQuitMessage(null);
 
         gameManager.removePlayer(player);
         event.setQuitMessage(getFinalQuitMessage(player));

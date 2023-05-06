@@ -26,6 +26,10 @@ leave: '&f&lLeave'
 cannot-chat: '%prefix%&cYou cannot chat in the spectator mode.'
 teleported-to: '%prefix%&7You have been teleported to &f&l%player%&7.'
 
+#End
+player-won: '%prefix% &f&l%player% &7has won the game! &6&lCongratulations!'
+restart-announce: '%prefix% &7The server restarts in &f&l%seconds% &7second(s)!'
+
 #Command messages
 #
 # Permissions can be edited in config.yml

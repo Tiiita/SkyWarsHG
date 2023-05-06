@@ -3,14 +3,9 @@ package de.tiiita.skywarshg.game.phase.impl;
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.scoreboard.GameBoard;
 import de.tiiita.skywarshg.util.PositiveTimer;
-import de.tiiita.skywarshg.util.TimeUtil;
-import de.tiiita.skywarshg.util.Timer;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
-import org.omg.CORBA.TIMEOUT;
-
-import java.util.logging.Level;
 
 /**
  * Created on Mai 05, 2023 | 19:17:29
@@ -22,7 +17,7 @@ public class StartedPhase implements Listener {
     private final GameManager gameManager;
     private final Plugin plugin;
     private PositiveTimer timer;
-    private boolean activated;
+    private boolean phaseActivated;
 
     public StartedPhase(GameBoard gameBoard, GameManager gameManager, Plugin plugin) {
         this.gameBoard = gameBoard;
@@ -31,12 +26,12 @@ public class StartedPhase implements Listener {
     }
 
     public void start() {
-        this.activated = true;
+        this.phaseActivated = true;
         startScoreboardTimer();
     }
 
     public void stop() {
-        this.activated = false;
+        this.phaseActivated = false;
         timer.stop();
         Bukkit.getOnlinePlayers().forEach(player -> {
             gameBoard.updateScoreboardTimer(player, "Game Stopped");

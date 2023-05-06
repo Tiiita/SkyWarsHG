@@ -56,7 +56,7 @@ public class GamePhaseListener implements Listener {
 
             case WINNING: {
                 startedPhase.stop();
-                WinningPhase phase = new WinningPhase();
+                WinningPhase phase = new WinningPhase(messagesConfig, gameManager, plugin, config);
                 Bukkit.getPluginManager().registerEvents(phase, plugin);
                 phase.start(); //Stops with shutting down the server after a few seconds
                 break;
