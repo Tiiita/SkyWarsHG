@@ -1,6 +1,6 @@
 package de.tiiita.skywarshg;
 
-import de.tiiita.skywarshg.command.ConfigureCommand;
+import de.tiiita.skywarshg.mode.configure.ConfigureCommand;
 import de.tiiita.skywarshg.command.StartCommand;
 import de.tiiita.skywarshg.game.GamePhaseListener;
 import de.tiiita.skywarshg.game.GameManager;
@@ -9,9 +9,9 @@ import de.tiiita.skywarshg.game.phase.GamePhase;
 import de.tiiita.skywarshg.listener.KillListener;
 import de.tiiita.skywarshg.listener.PlayerConnectionListener;
 import de.tiiita.skywarshg.scoreboard.GameBoard;
-import de.tiiita.skywarshg.spectator.SpectatorHandler;
-import de.tiiita.skywarshg.spectator.SpectatorItemListener;
-import de.tiiita.skywarshg.spectator.SpectatorListener;
+import de.tiiita.skywarshg.mode.spectator.SpectatorHandler;
+import de.tiiita.skywarshg.mode.spectator.SpectatorItemListener;
+import de.tiiita.skywarshg.mode.spectator.SpectatorListener;
 import de.tiiita.skywarshg.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;

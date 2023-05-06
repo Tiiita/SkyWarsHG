@@ -1,4 +1,4 @@
-package de.tiiita.skywarshg.spectator;
+package de.tiiita.skywarshg.mode.spectator;
 
 import de.tiiita.skywarshg.util.Config;
 import de.tiiita.skywarshg.util.ItemBuilder;

@@ -1,4 +1,4 @@
-package de.tiiita.skywarshg.command;
+package de.tiiita.skywarshg.mode.configure;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

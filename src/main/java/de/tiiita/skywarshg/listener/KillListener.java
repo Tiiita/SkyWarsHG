@@ -3,7 +3,7 @@ package de.tiiita.skywarshg.listener;
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.game.StatsHandler;
 import de.tiiita.skywarshg.scoreboard.GameBoard;
-import de.tiiita.skywarshg.spectator.SpectatorHandler;
+import de.tiiita.skywarshg.mode.spectator.SpectatorHandler;
 import de.tiiita.skywarshg.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

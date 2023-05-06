@@ -1,4 +1,4 @@
-package de.tiiita.skywarshg.spectator;
+package de.tiiita.skywarshg.mode.spectator;
 
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.util.Actions;
@@ -11,7 +11,6 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -19,8 +18,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
-
-import java.util.stream.Collectors;
 
 /**
  * Created on Mai 05, 2023 | 21:33:39

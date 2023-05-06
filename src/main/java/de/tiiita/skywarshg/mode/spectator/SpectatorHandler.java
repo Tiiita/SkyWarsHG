@@ -1,7 +1,5 @@
-package de.tiiita.skywarshg.spectator;
+package de.tiiita.skywarshg.mode.spectator;
 
-import de.tiiita.skywarshg.game.GameManager;
-import de.tiiita.skywarshg.game.phase.GamePhase;
 import de.tiiita.skywarshg.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;

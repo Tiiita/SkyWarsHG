@@ -5,26 +5,26 @@
 prefix: '&f&lSWHG &8| '
 
 #General
-scoreboard-ip: '&eExample.com'
+scoreboard-ip: '&example.com'
 no-permissions: '%prefix% &cYou do not have permissions to execute that command!'
 kick-message: '&cThe game has already started...'
 
 #Start
-start-command-not-enough: '%prefix% &7You need min. &f2 &7players to force start.'
-force-start-broadcast: '%prefix% &7The game has been force started.'
+start-command-not-enough: '%prefix%&7You need min. &f2 &7players to force start.'
+force-start-broadcast: '%prefix%&7The game has been force started.'
 
 join-message: '%prefix%&f&l%player% &7joined the game. (&a%players%&7/&a%maxPlayers%&7)' #Type ''  if you do not want any message.
 quit-message: '%prefix%&f&l%player% &7left the game.' #Type ''  if you do not want any message.
-need-more-players: '%prefix% &7We need &f%needed% &7more player(s) to start!'
-start-counting: '%prefix% &7The game starts in &f&l%seconds% &7second(s)!'
-start-complete: '%prefix% &7The game has been started.'
+need-more-players: '%prefix%&7We need &f%needed% &7more player(s) to start!'
+start-counting: '%prefix%&7The game starts in &f&l%seconds% &7second(s)!'
+start-complete: '%prefix%&7The game has been started.'
 
 #Game
-kill-message: '%prefix% &f%player% &7has been killed by &f%killer%&7.'
-die-message: '%prefix% &f%player% &7died.'
+kill-message: '%prefix%&f%player% &7has been killed by &f%killer%&7.'
+die-message: '%prefix%&f%player% &7died.'
 
 #Spectator
 teleporter: '&f&lTeleporter'
 leave: '&f&lLeave'
-cannot-chat: '%prefix% &cYou cannot chat in the spectator mode.'
-teleported-to: '%prefix% &7You have been teleported to &f&l%player%&7.'
+cannot-chat: '%prefix%&cYou cannot chat in the spectator mode.'
+teleported-to: '%prefix%&7You have been teleported to &f&l%player%&7.'
