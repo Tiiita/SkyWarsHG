@@ -1,5 +1,6 @@
 package de.tiiita.skywarshg.game.phase.impl;
 
+import com.sun.xml.internal.ws.util.CompletedFuture;
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.util.Config;
 import de.tiiita.skywarshg.util.PlayerUtil;
@@ -16,6 +17,12 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.plugin.Plugin;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.UUID;
+import java.util.Vector;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 
 /**
@@ -41,47 +48,55 @@ public class WinningPhase implements Listener {
         this.phaseActivated = true;
 
         managePlayers();
-        broadcastWin();
-        Timer shutdownTimer = new Timer(5, plugin);
-        shutdownTimer.start();
-        String shutdownMessage = messagesConfig.getString("restart-announce");
-        shutdownTimer.eachSecond(() -> {
-            Bukkit.broadcastMessage(shutdownMessage);
-        });
-        String fallbackServer = config.getString("move-back-lobby");
-        shutdownTimer.whenComplete(() -> {
-            Bukkit.getOnlinePlayers().forEach(player -> {
-                PlayerUtil.movePlayerToServer(player, plugin, fallbackServer);
-            });
-            Bukkit.getScheduler().runTaskLater(plugin, Bukkit::shutdown, 20);
+        broadcastWin().whenComplete((unused, throwable) -> {
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+
+                Timer shutdownTimer = new Timer(5, plugin);
+                shutdownTimer.start();
+                String shutdownMessage = messagesConfig.getString("restart-announce");
+                shutdownTimer.eachSecond(() -> {
+                    Bukkit.broadcastMessage(shutdownMessage);
+                });
+
+                String fallbackServer = config.getString("move-back-lobby");
+                shutdownTimer.whenComplete(() -> {
+                    Bukkit.getOnlinePlayers().forEach(player -> {
+                        PlayerUtil.movePlayerToServer(player, plugin, fallbackServer);
+                    });
+                    Bukkit.getScheduler().runTaskLater(plugin, Bukkit::shutdown, 20);
+                });
+
+
+            }, 40);
         });
     }
-
 
     private void managePlayers() {
         gameManager.getPlayers().forEach(player -> {
             player.setGameMode(GameMode.CREATIVE);
         });
     }
-    private void broadcastWin() {
+    public CompletableFuture<Void> broadcastWin() {
+        return CompletableFuture.runAsync(() -> {
+            int currentPlayerCount = gameManager.getPlayerCount();
+            if (currentPlayerCount >= 2) {
+                Bukkit.getLogger().log(Level.SEVERE, "*** Winning Phase has been activated but there are more than 1 player in the game. ***");
+                Bukkit.getLogger().log(Level.SEVERE, "*** This is a bug! Please report it imminently! ***");
+                return;
+            }
 
-        int currentPlayerCount = gameManager.getPlayerCount();
-        if (currentPlayerCount >= 2) {
-            Bukkit.getLogger().log(Level.SEVERE, "*** Winning Phase has been activated but there are more than 1 player in the game. ***");
-            Bukkit.getLogger().log(Level.SEVERE, "*** This is a bug! Please report it imminently! ***");
-            return;
-        }
+            Player winner = gameManager.getPlayers().iterator().next();
+            String winMessage = messagesConfig.getString("player-won")
+                    .replaceAll("%player%", winner.getName());
 
-        Player winner = gameManager.getPlayers().iterator().next();
-        String winMessage = messagesConfig.getString("player-won")
-                .replaceAll("%player%", winner.getName());
-
-        Timer timer = new Timer(3, plugin);
-        timer.start();
-        timer.eachSecond(() -> {
-            Bukkit.broadcastMessage(winMessage);
+            Timer timer = new Timer(3, plugin);
+            timer.start();
+            timer.eachSecond(() -> {
+                Bukkit.broadcastMessage(winMessage);
+            });
         });
     }
+
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         if (!phaseActivated) return;
