@@ -21,9 +21,10 @@ public class Config {
 
     private final FileConfiguration fileConfiguration;
     private final File file;
-
-    public Config(String name, Plugin plugin) {
+    private final boolean isMessagesConfig;
+    public Config(String name, Plugin plugin, boolean isMessagesConfig) {
         this.plugin = plugin;
+        this.isMessagesConfig = isMessagesConfig;
         plugin.saveResource(name, false);
         File path = plugin.getDataFolder();
 
@@ -74,8 +75,10 @@ public class Config {
 
     public String getString(String path) {
         String string = color(getRawString(path));
-        String prefix = color(getRawString("prefix"));
-        return string.replaceAll("%prefix%", prefix);
+        if (isMessagesConfig) {
+            String prefix = color(getRawString("prefix"));
+            return string.replaceAll("%prefix%", prefix);
+        } else return string;
     }
 
     public String getRawString(String path) {

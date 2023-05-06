@@ -1,4 +1,4 @@
-package de.tiiita.skywarshg.game.phase;
+package de.tiiita.skywarshg.game.phase.event;
 
 import de.tiiita.skywarshg.game.phase.GamePhase;
 import org.bukkit.event.Event;

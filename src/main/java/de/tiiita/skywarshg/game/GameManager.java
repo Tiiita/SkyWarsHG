@@ -1,17 +1,13 @@
 package de.tiiita.skywarshg.game;
 
 import de.tiiita.skywarshg.game.phase.GamePhase;
-import de.tiiita.skywarshg.game.phase.GamePhaseChangeEvent;
+import de.tiiita.skywarshg.game.phase.event.GamePhaseChangeEvent;
+import de.tiiita.skywarshg.game.phase.event.PlayerRemoveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerKickEvent;
-import sun.util.resources.cldr.zh.CalendarData_zh_Hans_HK;
 
-import javax.print.attribute.standard.PrinterLocation;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,6 +30,7 @@ public class GameManager {
 
     public void removePlayer(Player player) {
         players.remove(player);
+        Bukkit.getPluginManager().callEvent(new PlayerRemoveEvent(player));
     }
 
     public void setCurrentGamePhase(GamePhase gamePhase) {

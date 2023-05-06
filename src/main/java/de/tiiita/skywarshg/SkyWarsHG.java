@@ -32,9 +32,9 @@ public final class SkyWarsHG extends JavaPlugin {
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         //This is for the custom configs
-        this.messagesConfig = new Config("messages.yml", this);
-        this.mapSavesConfig = new Config("mapsaves.yml", this);
-        this.config = new Config("config.yml", this);
+        this.messagesConfig = new Config("messages.yml", this, true);
+        this.mapSavesConfig = new Config("mapsaves.yml", this, false);
+        this.config = new Config("config.yml", this, false);
         this.statsHandler = new StatsHandler();
         this.gameManager = new GameManager(getConfig());
         this.gameBoard = new GameBoard(gameManager, messagesConfig, statsHandler);
