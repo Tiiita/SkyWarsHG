@@ -1,6 +1,5 @@
 package de.tiiita.skywarshg.game.phase.impl;
 
-import com.sun.xml.internal.ws.util.CompletedFuture;
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.util.Config;
 import de.tiiita.skywarshg.util.PlayerUtil;
@@ -17,11 +16,6 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.plugin.Plugin;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.UUID;
-import java.util.Vector;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 
@@ -48,27 +42,26 @@ public class WinningPhase implements Listener {
         this.phaseActivated = true;
 
         managePlayers();
-        broadcastWin().whenComplete((unused, throwable) -> {
-            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+        broadcastWin();
 
-                Timer shutdownTimer = new Timer(5, plugin);
-                shutdownTimer.start();
-                String shutdownMessage = messagesConfig.getString("restart-announce");
-                shutdownTimer.eachSecond(() -> {
-                    Bukkit.broadcastMessage(shutdownMessage);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+
+            Timer shutdownTimer = new Timer(5, plugin);
+            shutdownTimer.start();
+            String shutdownMessage = messagesConfig.getString("restart-announce");
+            shutdownTimer.eachSecond(() -> {
+                Bukkit.broadcastMessage(shutdownMessage);
+            });
+
+            String fallbackServer = config.getString("move-back-lobby");
+            shutdownTimer.whenComplete(() -> {
+                Bukkit.getOnlinePlayers().forEach(player -> {
+                    PlayerUtil.movePlayerToServer(player, plugin, fallbackServer);
                 });
+                Bukkit.getScheduler().runTaskLater(plugin, Bukkit::shutdown, 20);
+            });
 
-                String fallbackServer = config.getString("move-back-lobby");
-                shutdownTimer.whenComplete(() -> {
-                    Bukkit.getOnlinePlayers().forEach(player -> {
-                        PlayerUtil.movePlayerToServer(player, plugin, fallbackServer);
-                    });
-                    Bukkit.getScheduler().runTaskLater(plugin, Bukkit::shutdown, 20);
-                });
-
-
-            }, 40);
-        });
+        }, 20 * 5);
     }
 
     private void managePlayers() {
@@ -76,25 +69,25 @@ public class WinningPhase implements Listener {
             player.setGameMode(GameMode.CREATIVE);
         });
     }
-    public CompletableFuture<Void> broadcastWin() {
-        return CompletableFuture.runAsync(() -> {
-            int currentPlayerCount = gameManager.getPlayerCount();
-            if (currentPlayerCount >= 2) {
-                Bukkit.getLogger().log(Level.SEVERE, "*** Winning Phase has been activated but there are more than 1 player in the game. ***");
-                Bukkit.getLogger().log(Level.SEVERE, "*** This is a bug! Please report it imminently! ***");
-                return;
-            }
 
-            Player winner = gameManager.getPlayers().iterator().next();
-            String winMessage = messagesConfig.getString("player-won")
-                    .replaceAll("%player%", winner.getName());
+    public void broadcastWin() {
+        int currentPlayerCount = gameManager.getPlayerCount();
+        if (currentPlayerCount >= 2) {
+            Bukkit.getLogger().log(Level.SEVERE, "*** Winning Phase has been activated but there are more than 1 player in the game. ***");
+            Bukkit.getLogger().log(Level.SEVERE, "*** This is a bug! Please report it imminently! ***");
+            return;
+        }
 
-            Timer timer = new Timer(3, plugin);
-            timer.start();
-            timer.eachSecond(() -> {
-                Bukkit.broadcastMessage(winMessage);
-            });
-        });
+        Player winner = gameManager.getPlayers().iterator().next();
+        String winMessage = messagesConfig.getString("player-won")
+                .replaceAll("%player%", winner.getName());
+        String title = messagesConfig.getString("player-won-title")
+                .replaceAll("%player%", winner.getName());
+        String subtitle = messagesConfig.getString("player-won-subtitle")
+                .replaceAll("%player%", winner.getName());
+
+        Bukkit.broadcastMessage(winMessage);
+        Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle(title, subtitle));
     }
 
     @EventHandler
@@ -108,11 +101,13 @@ public class WinningPhase implements Listener {
         if (!phaseActivated) return;
         event.setCancelled(true);
     }
+
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent event) {
         if (!phaseActivated) return;
         event.setCancelled(true);
     }
+
     @EventHandler
     public void onItemPickup(PlayerPickupItemEvent event) {
         if (!phaseActivated) return;

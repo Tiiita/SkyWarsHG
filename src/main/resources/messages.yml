@@ -28,6 +28,9 @@ teleported-to: '%prefix%&7You have been teleported to &f&l%player%&7.'
 
 #End
 player-won: '%prefix% &f&l%player% &7has won the game! &6&lCongratulations!'
+player-won-title: '&f&l%player%'
+player-won-subtitle: '&7won the game!'
+
 restart-announce: '%prefix% &7The server restarts in &f&l%seconds% &7second(s)!'
 
 #Command messages
