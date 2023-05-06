@@ -31,11 +31,11 @@ public class LobbyPhase implements Listener {
     private final GameManager gameManager;
     private final Plugin plugin;
     private final Config messagesConfig;
-    private final FileConfiguration config;
+    private final Config config;
     private boolean phaseActivated;
     private Timer startTimer;
 
-    public LobbyPhase(GameManager gameManager, Plugin plugin, Config messagesConfig, FileConfiguration config) {
+    public LobbyPhase(GameManager gameManager, Plugin plugin, Config messagesConfig, Config config) {
         this.gameManager = gameManager;
         this.plugin = plugin;
         this.messagesConfig = messagesConfig;

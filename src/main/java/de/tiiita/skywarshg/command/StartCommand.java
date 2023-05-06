@@ -17,9 +17,9 @@ import org.bukkit.entity.Player;
 public class StartCommand implements CommandExecutor {
     private final GameManager gameManager;
     private final Config messagesConfig;
-    private final FileConfiguration config;
+    private final Config config;
 
-    public StartCommand(GameManager gameManager, Config messagesConfig, FileConfiguration config) {
+    public StartCommand(GameManager gameManager, Config messagesConfig, Config config) {
         this.gameManager = gameManager;
         this.messagesConfig = messagesConfig;
         this.config = config;

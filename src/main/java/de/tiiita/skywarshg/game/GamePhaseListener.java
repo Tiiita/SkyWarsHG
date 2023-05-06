@@ -24,12 +24,12 @@ public class GamePhaseListener implements Listener {
     private final GameBoard gameBoard;
     private final Plugin plugin;
     private final Config messagesConfig;
-    private final FileConfiguration config;
+    private final Config config;
 
     private LobbyPhase lobbyPhase;
     private StartedPhase startedPhase;
 
-    public GamePhaseListener(GameManager gameManager, GameBoard gameBoard, Plugin plugin, Config messagesConfig, FileConfiguration config) {
+    public GamePhaseListener(GameManager gameManager, GameBoard gameBoard, Plugin plugin, Config messagesConfig, Config config) {
         this.gameManager = gameManager;
         this.gameBoard = gameBoard;
         this.plugin = plugin;

@@ -28,9 +28,9 @@ public class SpectatorItemListener implements Listener {
     private final GameManager gameManager;
     private final Config messagesConfig;
     private final Plugin plugin;
-    private final FileConfiguration config;
+    private final Config config;
 
-    public SpectatorItemListener(SpectatorHandler spectatorHandler, GameManager gameManager, Config messagesConfig, Plugin plugin, FileConfiguration config) {
+    public SpectatorItemListener(SpectatorHandler spectatorHandler, GameManager gameManager, Config messagesConfig, Plugin plugin, Config config) {
         this.spectatorHandler = spectatorHandler;
         this.gameManager = gameManager;
         this.messagesConfig = messagesConfig;

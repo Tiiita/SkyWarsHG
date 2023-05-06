@@ -20,6 +20,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class SkyWarsHG extends JavaPlugin {
     private Config messagesConfig;
     private Config mapSavesConfig;
+    private Config config;
+
     private StatsHandler statsHandler;
     private SpectatorHandler spectatorHandler;
     private GameBoard gameBoard;
@@ -29,13 +31,10 @@ public final class SkyWarsHG extends JavaPlugin {
         // Plugin startup logic
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        //This is for the config.yml
-        saveDefaultConfig();
-
         //This is for the custom configs
         this.messagesConfig = new Config("messages.yml", this);
         this.mapSavesConfig = new Config("mapsaves.yml", this);
-
+        this.config = new Config("config.yml", this);
         this.statsHandler = new StatsHandler();
         this.gameManager = new GameManager(getConfig());
         this.gameBoard = new GameBoard(gameManager, messagesConfig, statsHandler);
@@ -54,15 +53,15 @@ public final class SkyWarsHG extends JavaPlugin {
 
 
     private void registerCommands() {
-        getCommand("start").setExecutor(new StartCommand(gameManager, messagesConfig, getConfig()));
+        getCommand("start").setExecutor(new StartCommand(gameManager, messagesConfig, config));
         getCommand("configure").setExecutor(new ConfigureCommand());
     }
     private void registerListeners() {
         registerListener(statsHandler);
         registerListener(new SpectatorListener(spectatorHandler, messagesConfig));
-        registerListener(new SpectatorItemListener(spectatorHandler, gameManager, messagesConfig, this, getConfig()));
+        registerListener(new SpectatorItemListener(spectatorHandler, gameManager, messagesConfig, this, config));
         registerListener(new KillListener(statsHandler, gameBoard, gameManager, messagesConfig, spectatorHandler));
-        registerListener(new GamePhaseListener(gameManager, gameBoard, this, messagesConfig, getConfig()));
+        registerListener(new GamePhaseListener(gameManager, gameBoard, this, messagesConfig, config));
         registerListener(new PlayerConnectionListener(gameManager, messagesConfig, gameBoard, this));
     }
 
