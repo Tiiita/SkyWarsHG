@@ -8,11 +8,6 @@ start-counter: 5 #Seconds until game starts fully.
 move-back-lobby: 'YourLobbyNameHere' #Please set up this. It is used for the spectator "leave" item.
 
 #Permissions
-command:
-  start:
-    usage: '%prefix% &7Use: &f/start &7| Force start the game (min. 2 players).'
-    cannot-start: '%prefix% &cYou cannot start the game now!'
-    permission: 'skywarshg.forcestart'
-  configure:
-    usage: '%prefix% &7Use: &f/configure &7| Switch to configure mode.'
-    permission: 'skywarshg.configure'
+command-permission:
+  start: 'skywarshg.forcestart'
+  configure: 'skywarshg.configure'

@@ -10,6 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.logging.Level;
+
 /**
  * Created on Mai 05, 2023 | 14:45:15
  * (●'◡'●)
@@ -32,7 +34,7 @@ public class StartCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         String noPermissions = messagesConfig.getString("no-permissions");
-        String permission = config.getString("command.start.permission");
+        String permission = config.getString("command-permission.start");
         if (!player.hasPermission(permission)) {
             player.sendMessage(noPermissions);
             return true;
@@ -40,26 +42,26 @@ public class StartCommand implements CommandExecutor {
 
         if (args.length == 0) {
             if (gameManager.isCurrentlyCounting()) {
-                String cannotDoThatMessage = config.getString("command.start.cannot-start");
+                String cannotDoThatMessage = messagesConfig.getString("command.start.cannot-start");
                 player.sendMessage(cannotDoThatMessage);
                 return true;
             }
 
             if (gameManager.getCurrentGamePhase() != GamePhase.LOBBY_PHASE) {
-                String cannotDoThatMessage = config.getString("command.start.cannot-start");
+                String cannotDoThatMessage = messagesConfig.getString("command.start.cannot-start");
                 player.sendMessage(cannotDoThatMessage);
                 return true;
 
             }
             if (gameManager.getPlayerCount() < 2) {
-                String notEnoughPlayers = config.getString("start-command-not-enough");
+                String notEnoughPlayers = messagesConfig.getString("command.start.not-enough");
                 player.sendMessage(notEnoughPlayers);
                 return true;
             }
             gameManager.setCurrentGamePhase(GamePhase.STARTED);
-            Bukkit.broadcastMessage(messagesConfig.getString("force-start-broadcast"));
+            Bukkit.broadcastMessage(messagesConfig.getString("command.start.broadcast"));
         } else {
-            String usage = config.getString("command.start.usage");
+            String usage = messagesConfig.getString("command.start.usage");
             player.sendMessage(usage);
         }
         return true;

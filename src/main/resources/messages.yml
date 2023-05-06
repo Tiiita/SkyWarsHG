@@ -10,9 +10,6 @@ no-permissions: '%prefix% &cYou do not have permissions to execute that command!
 kick-message: '&cThe game has already started...'
 
 #Start
-start-command-not-enough: '%prefix%&7You need min. &f2 &7players to force start.'
-force-start-broadcast: '%prefix%&7The game has been force started.'
-
 join-message: '%prefix%&f&l%player% &7joined the game. (&a%players%&7/&a%maxPlayers%&7)' #Type ''  if you do not want any message.
 quit-message: '%prefix%&f&l%player% &7left the game.' #Type ''  if you do not want any message.
 need-more-players: '%prefix%&7We need &f%needed% &7more player(s) to start!'
@@ -28,3 +25,16 @@ teleporter: '&f&lTeleporter'
 leave: '&f&lLeave'
 cannot-chat: '%prefix%&cYou cannot chat in the spectator mode.'
 teleported-to: '%prefix%&7You have been teleported to &f&l%player%&7.'
+
+#Command messages
+#
+# Permissions can be edited in config.yml
+#
+command:
+  start:
+    usage: '%prefix% &7Use: &f/start &7| Force start the game (min. 2 players).'
+    cannot-start: '%prefix% &cYou cannot start the game now!'
+    not-enough: '%prefix%&7You need min. &f2 &7players to force start.'
+    broadcast: '%prefix%&7The game has been force started.'
+  configure:
+    usage: '%prefix% &7Use: &f/configure &7| Switch to configure mode.'
