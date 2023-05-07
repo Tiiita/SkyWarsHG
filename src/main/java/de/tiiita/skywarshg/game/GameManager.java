@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
+import org.bukkit.event.weather.WeatherChangeEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -81,6 +82,10 @@ public class GameManager implements Listener {
 
     @EventHandler
     public void onAchievementAward(PlayerAchievementAwardedEvent event) {
+        event.setCancelled(true);
+    }
+    @EventHandler
+    public void onWeatherChange(WeatherChangeEvent event) {
         event.setCancelled(true);
     }
 }

@@ -5,7 +5,8 @@
 prefix: '&f&lSWHG &8| '
 
 #General
-scoreboard-ip: '&example.com'
+scoreboard:
+  game: '&fGame: '
 no-permissions: '%prefix% &cYou do not have permissions to execute that command!'
 kick-message: '&cThe game has already started...'
 
