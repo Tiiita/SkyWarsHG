@@ -4,9 +4,24 @@
 
 prefix: '&f&lSWHG &8| '
 
-#General
+#Scoreboard
 scoreboard:
-  game: '&fGame: '
+  title: '&f&lSkyWarsHG'
+  header: '&8%date%'
+  footer: '&eexample.com'
+  game:
+    text: '&fGame: '
+    value: '&7%info%'
+  players:
+    text: '&fPlayers: '
+    value: '&a%players%&7/&a%maxPlayers%'
+  kills:
+    text: '&fKills: '
+    value: '&c%kills%'
+  map:
+    text: '&fMap: '
+    value: '&b%map%'
+#General
 no-permissions: '%prefix% &cYou do not have permissions to execute that command!'
 kick-message: '&cThe game has already started...'
 

@@ -20,53 +20,72 @@ public class GameBoard {
     private final GameManager gameManager;
     private final Config messagesConfig;
     private final StatsHandler statsHandler;
+
+    private final String title;
+    private final String header;
+    private final String footer;
+    private final String gameText;
+    private final String gameValue;
+    private final String playersText;
+    private final String playersValue;
+    private final String killsText;
+    private final String killsValue;
+    private final String mapText;
+    private final String mapValue;
     public GameBoard(GameManager gameManager, Config messagesConfig, StatsHandler statsHandler) {
         this.gameManager = gameManager;
         this.messagesConfig = messagesConfig;
         this.statsHandler = statsHandler;
+
+
+        this.title = messagesConfig.getString("scoreboard.title");
+        this.header = messagesConfig.getString("scoreboard.header")
+                .replaceAll("%date%", TimeUtil.getTimeInPattern("MM/dd/yyyy"));
+        this.footer = messagesConfig.getString("scoreboard.footer");
+
+        //Game
+        this.gameText = messagesConfig.getString("scoreboard.game.text");
+        this.gameValue = messagesConfig.getString("scoreboard.game.value"); //Placeholder replacement later
+
+        //Players
+        this.playersText = messagesConfig.getString("scoreboard.players.text");
+        this.playersValue = messagesConfig.getString("scoreboard.players.value"); //Placeholder replacement later
+
+        //Kills
+        this.killsText = messagesConfig.getString("scoreboard.kills.text");
+        this.killsValue = messagesConfig.getString("scoreboard.kills.value"); //Placeholder replacement later
+
+        //Map
+        this.mapText = messagesConfig.getString("scoreboard.map.text");
+        this.mapValue = messagesConfig.getString("scoreboard.map.value"); //Placeholder replacement later
     }
 
 
     public void setScoreboard(Player player) {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        Objective obj = scoreboard.registerNewObjective("startBoard", "dummy");
+        Objective obj = scoreboard.registerNewObjective("GameBoard", "dummy");
 
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        obj.setDisplayName("§f§lSkyWarsHG");
+        obj.setDisplayName(title);
 
         Team playersTeam = scoreboard.registerNewTeam("players");
         Team mapTeam = scoreboard.registerNewTeam("map");
         Team killsTeam = scoreboard.registerNewTeam("kills");
         Team gameTime = scoreboard.registerNewTeam("gameTime");
-        Team dateTeam = scoreboard.registerNewTeam("date");
+
 
         obj.getScore("§7§m-----------------§f").setScore(10);
-        obj.getScore("§8§o").setScore(9);
+        obj.getScore(header).setScore(9);
         obj.getScore("§a").setScore(8);
-        obj.getScore("§fGame: ").setScore(7);
-        obj.getScore("§fPlayers: ").setScore(6);
+        obj.getScore(gameText).setScore(7);
+        obj.getScore(playersText).setScore(6);
         obj.getScore("§f").setScore(5);
-        obj.getScore("§fKills: ").setScore(4);
-        obj.getScore("§fMap: ").setScore(3);
+        obj.getScore(killsText).setScore(4);
+        obj.getScore(mapText).setScore(3);
         obj.getScore("§e").setScore(2);
-        obj.getScore(messagesConfig.getString("scoreboard-ip")).setScore(1);
+        obj.getScore(footer).setScore(1);
         obj.getScore("§7§m-----------------§7").setScore(0);
 
-        playersTeam.addEntry("§fPlayers: ");
-        playersTeam.setSuffix("§a" + gameManager.getPlayerCount() + "§7/§a" + gameManager.getMaxPlayers());
-
-        killsTeam.addEntry("§fKills: ");
-        killsTeam.setSuffix("§c" + statsHandler.getKills(player));
-
-        gameTime.addEntry("§fGame: ");
-        gameTime.setSuffix("§7"+ "Not Started...");
-
-        mapTeam.addEntry("§fMap: ");
-        mapTeam.setSuffix("§b" + "Soon");
-
-        dateTeam.addEntry("§8§o");
-        String date = TimeUtil.getTimeInPattern("MM/dd/yyyy");
-        dateTeam.setSuffix("§7§o " + date);
         player.setScoreboard(scoreboard);
     }
 
@@ -77,7 +96,7 @@ public class GameBoard {
             return;
         }
         Team gameTime = scoreboard.getTeam("gameTime");
-        gameTime.setSuffix("§7" + gameTimeValue);
+        gameTime.setSuffix(gameValue.replaceAll("%info%", gameTimeValue));
     }
     public void updateScoreboard(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
@@ -88,14 +107,11 @@ public class GameBoard {
         Team playersTeam = scoreboard.getTeam("players");
         Team mapTeam = scoreboard.getTeam("map");
         Team killsTeam = scoreboard.getTeam("kills");
-        Team dateTeam = scoreboard.getTeam("date");
 
 
-        String date = TimeUtil.getTimeInPattern("MM/dd/yyyy");
-        dateTeam.setSuffix("§8§o" + date);
-
-        playersTeam.setSuffix("§a" + gameManager.getPlayerCount() + "§7/§a" + gameManager.getMaxPlayers());
-        killsTeam.setSuffix("§c" + statsHandler.getKills(player));
-        mapTeam.setSuffix("§b" + "Soon");
+        playersTeam.setSuffix(playersValue.replaceAll("%players%", "" + gameManager.getPlayerCount())
+                .replaceAll("%%maxPlayers%", "" + gameManager.getMaxPlayers()));
+        killsTeam.setSuffix(killsValue.replaceAll("%kills%", "" + statsHandler.getKills(player)));
+        mapTeam.setSuffix(mapValue.replaceAll("%map%", "Soon"));
     }
 }
