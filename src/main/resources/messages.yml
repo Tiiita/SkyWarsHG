@@ -14,7 +14,7 @@ scoreboard:
     value: '&7%info%'
   players:
     text: '&fPlayers: '
-    value: '&a%players%&7/&a%maxPlayers%'
+    value: '&a%p%&7/&a%max%' #%p% == Players in the game. %players% placeholder would be to long. (Max. 16 characters.)
   kills:
     text: '&fKills: '
     value: '&c%kills%'

@@ -11,6 +11,8 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import java.util.logging.Level;
+
 /**
  * Created on Mai 05, 2023 | 16:17:51
  * (●'◡'●)
@@ -61,7 +63,7 @@ public class GameBoard {
     }
 
 
-    public void setScoreboard(Player player) {
+    public void set(Player player) {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective obj = scoreboard.registerNewObjective("GameBoard", "dummy");
 
@@ -72,7 +74,6 @@ public class GameBoard {
         Team mapTeam = scoreboard.registerNewTeam("map");
         Team killsTeam = scoreboard.registerNewTeam("kills");
         Team gameTime = scoreboard.registerNewTeam("gameTime");
-
 
         obj.getScore("§7§m-----------------§f").setScore(10);
         obj.getScore(header).setScore(9);
@@ -86,22 +87,34 @@ public class GameBoard {
         obj.getScore(footer).setScore(1);
         obj.getScore("§7§m-----------------§7").setScore(0);
 
+        playersTeam.addEntry(playersText);
+        mapTeam.addEntry(mapText);
+        killsTeam.addEntry(killsText);
+        gameTime.addEntry(gameText);
+
+
+        playersTeam.setSuffix(playersValue.replaceAll("%p%", "" + gameManager.getPlayerCount())
+                .replaceAll("%max%", "" + gameManager.getMaxPlayers()));
+        killsTeam.setSuffix(killsValue.replaceAll("%kills%", "" + statsHandler.getKills(player)));
+        mapTeam.setSuffix(mapValue.replaceAll("%map%", "Soon"));
+        gameTime.setSuffix(gameValue.replaceAll("%info%", "Not Started..."));
         player.setScoreboard(scoreboard);
+        update(player);
     }
 
-    public void updateScoreboardTimer(Player player, String gameTimeValue) {
+    public void updateTimer(Player player, String gameTimeValue) {
         Scoreboard scoreboard = player.getScoreboard();
         if (scoreboard == null) {
-            setScoreboard(player);
+            set(player);
             return;
         }
         Team gameTime = scoreboard.getTeam("gameTime");
         gameTime.setSuffix(gameValue.replaceAll("%info%", gameTimeValue));
     }
-    public void updateScoreboard(Player player) {
+    public void update(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
         if (scoreboard == null) {
-            setScoreboard(player);
+            set(player);
             return;
         }
         Team playersTeam = scoreboard.getTeam("players");
@@ -109,8 +122,8 @@ public class GameBoard {
         Team killsTeam = scoreboard.getTeam("kills");
 
 
-        playersTeam.setSuffix(playersValue.replaceAll("%players%", "" + gameManager.getPlayerCount())
-                .replaceAll("%%maxPlayers%", "" + gameManager.getMaxPlayers()));
+        playersTeam.setSuffix(playersValue.replaceAll("%p%", "" + gameManager.getPlayerCount())
+                .replaceAll("%max%", "" + gameManager.getMaxPlayers()));
         killsTeam.setSuffix(killsValue.replaceAll("%kills%", "" + statsHandler.getKills(player)));
         mapTeam.setSuffix(mapValue.replaceAll("%map%", "Soon"));
     }

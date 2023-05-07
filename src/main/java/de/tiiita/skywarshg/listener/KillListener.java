@@ -41,7 +41,7 @@ public class KillListener implements Listener {
         String killBroadcast;
         if (killer != null) {
             statsHandler.addKill(killer);
-            gameBoard.updateScoreboard(killer);
+            gameBoard.update(killer);
             killBroadcast = messageConfig.getString("kill-message")
                     .replaceAll("%player%", player.getName())
                     .replaceAll("%killer%", killer.getName());

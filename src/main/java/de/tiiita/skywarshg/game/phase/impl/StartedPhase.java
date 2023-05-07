@@ -34,7 +34,7 @@ public class StartedPhase implements Listener {
         this.phaseActivated = false;
         timer.stop();
         Bukkit.getOnlinePlayers().forEach(player -> {
-            gameBoard.updateScoreboardTimer(player, "Game Stopped");
+            gameBoard.updateTimer(player, "Game Stopped");
         });
     }
 
@@ -44,7 +44,7 @@ public class StartedPhase implements Listener {
         timer.eachSecond(() -> {
             String format = secondsToString(timer.getCounter());
             Bukkit.getOnlinePlayers().forEach(player -> {
-                Bukkit.getScheduler().runTask(plugin, () -> gameBoard.updateScoreboardTimer(player, format));
+                Bukkit.getScheduler().runTask(plugin, () -> gameBoard.updateTimer(player, format));
             });
         });
 

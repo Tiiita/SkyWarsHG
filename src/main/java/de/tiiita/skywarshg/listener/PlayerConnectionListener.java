@@ -6,10 +6,8 @@ import de.tiiita.skywarshg.scoreboard.GameBoard;
 import de.tiiita.skywarshg.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -53,9 +51,9 @@ public class PlayerConnectionListener implements Listener {
         player.getActivePotionEffects().clear();
         player.setLevel(0);
         player.setExp(0);
-        gameBoard.setScoreboard(player);
+        gameBoard.set(player);
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            Bukkit.getOnlinePlayers().forEach(gameBoard::updateScoreboard);
+            Bukkit.getOnlinePlayers().forEach(gameBoard::update);
         }, 15);
         player.getInventory().clear();
     }
@@ -70,7 +68,7 @@ public class PlayerConnectionListener implements Listener {
         gameManager.removePlayer(player);
         event.setQuitMessage(getFinalQuitMessage(player));
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            Bukkit.getOnlinePlayers().forEach(gameBoard::updateScoreboard);
+            Bukkit.getOnlinePlayers().forEach(gameBoard::update);
         }, 15);
     }
 
