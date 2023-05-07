@@ -13,6 +13,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
+import java.util.logging.Level;
+
 /**
  * Created on Mai 05, 2023 | 15:38:24
  * (●'◡'●)
@@ -40,7 +42,7 @@ public class GamePhaseListener implements Listener {
         GamePhase gamePhase = event.getGamePhase();
         switch (gamePhase) {
             case LOBBY_PHASE: {
-                this.lobbyPhase=  new LobbyPhase(gameManager, plugin, messagesConfig, config);
+                this.lobbyPhase = new LobbyPhase(gameManager, plugin, messagesConfig, config);
                 Bukkit.getPluginManager().registerEvents(lobbyPhase, plugin);
                 lobbyPhase.start();
                 break;
@@ -68,9 +70,12 @@ public class GamePhaseListener implements Listener {
 
     @EventHandler
     public void onPlayerRemove(PlayerRemoveEvent event) {
+        Bukkit.getLogger().log(Level.SEVERE, "Called playermoveevent, currently players: " + gameManager.getPlayerCount());
         int currentPlayerCount = gameManager.getPlayerCount();
+        if (gameManager.getCurrentGamePhase() != GamePhase.STARTED) return;
         if (currentPlayerCount < 2) {
             gameManager.setCurrentGamePhase(GamePhase.WINNING);
         }
+
     }
 }

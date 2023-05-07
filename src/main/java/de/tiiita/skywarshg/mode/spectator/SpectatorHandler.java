@@ -24,8 +24,11 @@ public class SpectatorHandler {
 
     public void setSpectator(Player player) {
         playersInSpectator.add(player);
-        player.setGameMode(GameMode.CREATIVE);
+        player.setGameMode(GameMode.SURVIVAL);
+        player.setAllowFlight(true);
+        player.setFlying(true);
         spectatorItems.apply(player);
+        player.updateInventory();
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.hidePlayer(player));
     }
 

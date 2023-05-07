@@ -98,12 +98,14 @@ public class LobbyPhase implements Listener {
         startTimer.eachSecond(() -> {
             Bukkit.broadcastMessage(countingMessage.replaceAll("%seconds%", "" + startTimer.getCounter()));
             Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), Sound.NOTE_STICKS, 10, 1));
+            gameManager.getPlayers().forEach(player -> player.setLevel(startTimer.getCounter()));
         });
 
         startTimer.whenComplete(() -> {
             Bukkit.broadcastMessage(startedMessage);
             Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), Sound.LEVEL_UP, 10, 1));
             gameManager.setCurrentGamePhase(GamePhase.STARTED);
+            gameManager.getPlayers().forEach(player -> player.setLevel(0));
         });
 
     }

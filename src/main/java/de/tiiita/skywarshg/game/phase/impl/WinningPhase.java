@@ -40,16 +40,19 @@ public class WinningPhase implements Listener {
 
     public void start() {
         this.phaseActivated = true;
-
         managePlayers();
         broadcastWin();
+        startRestartCounter();
+    }
 
+    private void startRestartCounter() {
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
 
             Timer shutdownTimer = new Timer(5, plugin);
             shutdownTimer.start();
-            String shutdownMessage = messagesConfig.getString("restart-announce");
             shutdownTimer.eachSecond(() -> {
+                String shutdownMessage = messagesConfig.getString("restart-announce")
+                        .replaceAll("%seconds%", "" + shutdownTimer.getCounter());
                 Bukkit.broadcastMessage(shutdownMessage);
             });
 
@@ -63,7 +66,6 @@ public class WinningPhase implements Listener {
 
         }, 20 * 5);
     }
-
     private void managePlayers() {
         gameManager.getPlayers().forEach(player -> {
             player.setGameMode(GameMode.CREATIVE);

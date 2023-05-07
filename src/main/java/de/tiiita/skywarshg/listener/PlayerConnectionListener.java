@@ -5,6 +5,7 @@ import de.tiiita.skywarshg.game.phase.GamePhase;
 import de.tiiita.skywarshg.scoreboard.GameBoard;
 import de.tiiita.skywarshg.util.Config;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -45,6 +46,13 @@ public class PlayerConnectionListener implements Listener {
         gameManager.addPlayer(player);
         event.setJoinMessage(getFinalJoinMessage(player));
 
+        //Player Management:
+        player.setGameMode(GameMode.SURVIVAL);
+        player.setHealth(20);
+        player.setFoodLevel(20);
+        player.getActivePotionEffects().clear();
+        player.setLevel(0);
+        player.setExp(0);
         gameBoard.setScoreboard(player);
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             Bukkit.getOnlinePlayers().forEach(gameBoard::updateScoreboard);

@@ -1,7 +1,7 @@
 #Start Phase settings
 player-settings:
   max: 8
-  min: 3
+  min: 2
 start-counter: 5 #Seconds until game starts fully.
 
 #Move Back

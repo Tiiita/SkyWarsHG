@@ -38,6 +38,7 @@ public class StartedPhase implements Listener {
         });
     }
 
+    //TODO: Winning Phase doesnt activate when only one player is there. (DEBUG)
     private void startScoreboardTimer() {
         this.timer = new PositiveTimer(plugin);
         timer.start();
