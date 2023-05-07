@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -154,6 +155,13 @@ public class LobbyPhase implements Listener {
         if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
             event.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onHunger(FoodLevelChangeEvent event) {
+        if (!phaseActivated) return;
+        event.setCancelled(true);
+        if (event.getEntity() instanceof Player) ((Player) event.getEntity()).setFoodLevel(20);
     }
 }
 

@@ -66,16 +66,4 @@ public class GamePhaseListener implements Listener {
         }
 
     }
-
-
-    @EventHandler
-    public void onPlayerRemove(PlayerRemoveEvent event) {
-        Bukkit.getLogger().log(Level.SEVERE, "Called playermoveevent, currently players: " + gameManager.getPlayerCount());
-        int currentPlayerCount = gameManager.getPlayerCount();
-        if (gameManager.getCurrentGamePhase() != GamePhase.STARTED) return;
-        if (currentPlayerCount < 2) {
-            gameManager.setCurrentGamePhase(GamePhase.WINNING);
-        }
-
-    }
 }

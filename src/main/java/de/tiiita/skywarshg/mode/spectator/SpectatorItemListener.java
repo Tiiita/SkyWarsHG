@@ -19,6 +19,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 /**
  * Created on Mai 05, 2023 | 21:33:39
  * (●'◡'●)
@@ -37,7 +40,6 @@ public class SpectatorItemListener implements Listener {
         this.plugin = plugin;
         this.config = config;
     }
-
 
 
     @EventHandler
@@ -60,15 +62,14 @@ public class SpectatorItemListener implements Listener {
                 return;
             }
 
-            if (!current.equals(player)) {
-                inventory.setItem(counter, getHeadItem(current));
-            }
+            inventory.setItem(counter, getHeadItem(current));
             counter++;
         }
 
         player.openInventory(inventory);
 
     }
+
     @EventHandler
     public void onBackgroundClick(InventoryClickEvent event) {
 
@@ -112,7 +113,7 @@ public class SpectatorItemListener implements Listener {
 
         player.teleport(target.getLocation());
         String teleportMessage = messagesConfig.getString("teleported-to")
-                        .replaceAll("%player%", target.getName());
+                .replaceAll("%player%", target.getName());
         player.sendMessage(teleportMessage);
     }
 

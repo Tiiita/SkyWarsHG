@@ -6,6 +6,9 @@ import de.tiiita.skywarshg.game.phase.event.PlayerRemoveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +17,7 @@ import java.util.Set;
  * Created on Mai 05, 2023 | 15:03:55
  * (●'◡'●)
  */
-public class GameManager {
+public class GameManager implements Listener {
     private final Set<Player> players = new HashSet<>();
     private GamePhase currentGamePhase = GamePhase.LOBBY_PHASE;
     private final FileConfiguration config;
@@ -51,6 +54,7 @@ public class GameManager {
     public int getMinPlayers() {
         return config.getInt("player-settings.min");
     }
+
     public int getPlayerCount() {
         return players.size();
     }
@@ -65,5 +69,18 @@ public class GameManager {
 
     public void setCurrentlyCounting(boolean currentlyCounting) {
         this.currentlyCounting = currentlyCounting;
+    }
+
+    @EventHandler
+    public void onPlayerRemove(PlayerRemoveEvent event) {
+        if (getCurrentGamePhase() != GamePhase.STARTED) return;
+        if (getPlayerCount() < 2) {
+            setCurrentGamePhase(GamePhase.WINNING);
+        }
+    }
+
+    @EventHandler
+    public void onAchievementAward(PlayerAchievementAwardedEvent event) {
+        event.setCancelled(true);
     }
 }

@@ -21,6 +21,7 @@ public final class SkyWarsHG extends JavaPlugin {
     private Config messagesConfig;
     private Config mapSavesConfig;
     private Config config;
+    private Config chestsConfig;
 
     private StatsHandler statsHandler;
     private SpectatorHandler spectatorHandler;
@@ -34,7 +35,9 @@ public final class SkyWarsHG extends JavaPlugin {
         //This is for the custom configs
         this.messagesConfig = new Config("messages.yml", this, true);
         this.mapSavesConfig = new Config("mapsaves.yml", this, false);
+        this.chestsConfig = new Config("chests.yml", this, false);
         this.config = new Config("config.yml", this, false);
+
         this.statsHandler = new StatsHandler();
         this.gameManager = new GameManager(getConfig());
         this.gameBoard = new GameBoard(gameManager, messagesConfig, statsHandler);
@@ -63,6 +66,7 @@ public final class SkyWarsHG extends JavaPlugin {
         registerListener(new KillListener(statsHandler, gameBoard, gameManager, messagesConfig, spectatorHandler));
         registerListener(new GamePhaseListener(gameManager, gameBoard, this, messagesConfig, config));
         registerListener(new PlayerConnectionListener(gameManager, messagesConfig, gameBoard, this));
+        registerListener(gameManager);
     }
 
     //Just for the clean code...

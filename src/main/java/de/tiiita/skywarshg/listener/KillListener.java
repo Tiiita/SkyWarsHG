@@ -53,8 +53,8 @@ public class KillListener implements Listener {
         killBroadcast = messageConfig.getString("die-message")
                 .replaceAll("%player%", player.getName());
 
-        spectatorHandler.setSpectator(player);
         gameManager.removePlayer(player);
+        spectatorHandler.setSpectator(player); //Remove player first before setting spectator.
         Bukkit.broadcastMessage(killBroadcast);
     }
 }
