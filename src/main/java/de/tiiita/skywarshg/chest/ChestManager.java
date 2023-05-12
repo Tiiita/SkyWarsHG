@@ -56,26 +56,11 @@ public class ChestManager {
 
     public void applyItems(SWChest chest) {
         final ChestType chestType = chest.getChestType();
-        int reRollCounter = 0;
         int slots = new UniqueRandomNumberGenerator(getMinSlots(), getMaxSlots()).getRandomNumber();
         UniqueRandomNumberGenerator uniqueRandomNumberGenerator = new UniqueRandomNumberGenerator(0, 26);
         for (int i = 0; i < slots; i++) {
             int randomSlot = uniqueRandomNumberGenerator.getRandomNumber();
-
             Material randomMaterialKey = getRandomMaterial(chestType);
-            int maxDuplicateRate = chestsConfig.getInt("max-duplicate-rate");
-            int duplications = 0;
-            for (ItemStack item : chest.getChest().getInventory().getContents()) {
-                if (item != null && item.getType() == randomMaterialKey) {
-                    duplications++;
-                }
-            }
-
-            if (duplications > maxDuplicateRate) {
-                continue;
-            }
-
-
             int randomStackSize = random.nextInt(getPossibleMaterials(chestType).get(randomMaterialKey)) + 1;
             ItemStack randomItem = new ItemBuilder(randomMaterialKey, randomStackSize).toItemStack();
             chest.getChest().getInventory().setItem(randomSlot, randomItem);
