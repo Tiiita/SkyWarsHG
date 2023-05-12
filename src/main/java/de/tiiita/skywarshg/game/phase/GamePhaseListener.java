@@ -1,5 +1,6 @@
-package de.tiiita.skywarshg.game;
+package de.tiiita.skywarshg.game.phase;
 
+import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.game.phase.GamePhase;
 import de.tiiita.skywarshg.game.phase.event.GamePhaseChangeEvent;
 import de.tiiita.skywarshg.game.phase.event.PlayerRemoveEvent;

@@ -8,6 +8,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -81,6 +82,10 @@ public class Config {
         } else return string;
     }
 
+
+    public List<String> getStringList(String path) {
+        return fileConfiguration.getStringList(path);
+    }
     public String getRawString(String path) {
         return fileConfiguration.getString(path);
     }

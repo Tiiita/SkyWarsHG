@@ -2,7 +2,7 @@ package de.tiiita.skywarshg;
 
 import de.tiiita.skywarshg.mode.configure.ConfigureCommand;
 import de.tiiita.skywarshg.command.StartCommand;
-import de.tiiita.skywarshg.game.GamePhaseListener;
+import de.tiiita.skywarshg.game.phase.GamePhaseListener;
 import de.tiiita.skywarshg.game.GameManager;
 import de.tiiita.skywarshg.game.StatsHandler;
 import de.tiiita.skywarshg.game.phase.GamePhase;

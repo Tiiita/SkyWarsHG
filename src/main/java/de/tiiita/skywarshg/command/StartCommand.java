@@ -45,8 +45,8 @@ public class StartCommand implements CommandExecutor {
                 String cannotDoThatMessage = messagesConfig.getString("command.start.cannot-start");
                 player.sendMessage(cannotDoThatMessage);
                 return true;
-
             }
+
             if (gameManager.getPlayerCount() < 2) {
                 String notEnoughPlayers = messagesConfig.getString("command.start.not-enough");
                 player.sendMessage(notEnoughPlayers);
