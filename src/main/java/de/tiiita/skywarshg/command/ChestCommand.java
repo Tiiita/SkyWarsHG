@@ -2,6 +2,7 @@ package de.tiiita.skywarshg.command;
 
 import de.tiiita.skywarshg.chest.ChestManager;
 import de.tiiita.skywarshg.chest.ChestType;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,8 +24,27 @@ public class ChestCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (sender instanceof Player) {
-            chestManager.createChest(ChestType.valueOf(args[0]), ((Player) sender).getLocation());
-            sender.sendMessage("§7You have created a test chest!");
+            final Location location = ((Player) sender).getLocation();
+            if (args.length != 1) {
+
+                sender.sendMessage("§7Create a chest with /chest 1 or /chest 2");
+                return true;
+            }
+            switch (args[0]) {
+
+                case "1": {
+                    chestManager.createChest(ChestType.NORMAL_CHEST, location);
+                    sender.sendMessage("§7You have created a §anormal §7chest!");
+                    break;
+                }
+                case "2": {
+                    chestManager.createChest(ChestType.MIDDLE_CHEST, location);
+                    sender.sendMessage("§7You have created a §amiddle §7chest!");
+                    break;
+                }
+
+                default: sender.sendMessage("§7Create a chest with /chest 1 or /chest 2");
+            }
         }
         return true;
     }
