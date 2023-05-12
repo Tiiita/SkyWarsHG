@@ -4,6 +4,7 @@ import de.tiiita.skywarshg.game.phase.GamePhase;
 import de.tiiita.skywarshg.game.phase.event.GamePhaseChangeEvent;
 import de.tiiita.skywarshg.game.phase.event.PlayerRemoveEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -27,6 +27,20 @@ public class ChestManager {
 
 
     /**
+     *  Remove every chest that has been created.
+     * @return the count of removed chests.
+     */
+    public int removeChests() {
+        int removedChests = 0;
+        for (SWChest chest : currentChests) {
+            chest.getLocation().getBlock().setType(Material.AIR);
+            currentChests.remove(chest);
+            removedChests++;
+        }
+
+        return removedChests;
+    }
+    /**
      *
      * @param chestType the type of the chest.
      * @param location the location where the chest should spawn.
@@ -79,7 +93,7 @@ public class ChestManager {
 
     private Map<Material, Integer> getPossibleMaterialsFromConfig(String path) {
         Collection<String> entries = chestsConfig.getStringList(path);
-        if (entries == null) throw new NotFoundException("Cannot find path: " + path + "in chests.yml!");
+        if (entries == null) throw new IllegalArgumentException("Cannot find path: " + path + "in chests.yml!");
 
         Map<Material, Integer> materialToMaxStackSize = new HashMap<>();
 
@@ -90,7 +104,7 @@ public class ChestManager {
             int maxStackSize = Integer.parseInt(parts[1]);
 
             Material material = Material.getMaterial(materialName);
-            if (material == null) throw new NotFoundException("Material with the name: " + materialName + " was not found!");
+            if (material == null) throw new IllegalArgumentException("Material with the name: " + materialName + " was not found!");
 
             materialToMaxStackSize.put(material, maxStackSize);
         }

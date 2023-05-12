@@ -43,6 +43,11 @@ public class ChestCommand implements CommandExecutor {
                     break;
                 }
 
+                case "remove": {
+                    sender.sendMessage("§7You have removed §a" + chestManager.removeChests() + " §7chests!");
+                    break;
+                }
+
                 default: sender.sendMessage("§7Create a chest with /chest 1 or /chest 2");
             }
         }
