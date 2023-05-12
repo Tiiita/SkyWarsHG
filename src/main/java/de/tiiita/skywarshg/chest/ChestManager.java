@@ -66,7 +66,7 @@ public class ChestManager {
             int maxDuplicateRate = chestsConfig.getInt("max-duplicate-rate");
             int duplications = 0;
             for (ItemStack item : chest.getChest().getInventory().getContents()) {
-                if (item.getType() == randomMaterialKey) {
+                if (item != null && item.getType() == randomMaterialKey) {
                     duplications++;
                 }
             }
