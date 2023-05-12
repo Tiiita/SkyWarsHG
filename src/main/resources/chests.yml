@@ -25,7 +25,7 @@
 
 #So a chest has 27 slots. But it is very ugly to fill every slot with something.
 #So set the maximum slots! The plugin will randomly pick a slot number between the max-slots-set and min-slots-set!
-max-slots-set: 12 #Max. 27 (Do not use this is ugly...)
+max-slots-set: 12 #Max. 27 (Do not use this it would be very ugly...)
 min-slots-set: 4 #Min. 1 -> This cannot be higher than max-slots-set!!!
 
 #Chest Settings
@@ -37,7 +37,7 @@ normal-chest:
   - MUSHROOM_STEW#1
   - STONE_SWORD#1
   - STONE_SWORD#1
-  - STEAK#11
+  - COOKED_BEEF#11
 
 middle-chest:
   - DIAMOND_SWORD#1

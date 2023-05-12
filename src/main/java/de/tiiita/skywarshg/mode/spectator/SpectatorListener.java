@@ -1,6 +1,7 @@
 package de.tiiita.skywarshg.mode.spectator;
 
 import de.tiiita.skywarshg.util.Config;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
