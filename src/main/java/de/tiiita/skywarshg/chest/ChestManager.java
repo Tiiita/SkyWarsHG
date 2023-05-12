@@ -65,7 +65,7 @@ public class ChestManager {
             int randomMaterialIndex = random.nextInt(possibleMaterials.size());
             Material randomMaterialKey = materialArray[randomMaterialIndex];
 
-            int randomStackSize = random.nextInt(getPossibleMaterials(chestType).get(randomMaterialKey));
+            int randomStackSize = random.nextInt(getPossibleMaterials(chestType).get(randomMaterialKey) + 1);
             ItemStack randomItem = new ItemBuilder(randomMaterialKey, randomStackSize).toItemStack();
             chest.getChest().getInventory().setItem(randomSlot, randomItem);
         }
