@@ -54,6 +54,7 @@ public class ChestManager {
     }
 
     public void applyItems(SWChest chest, ChestType chestType) {
+        Random random = new Random();
         int slots = new UniqueRandomNumberGenerator(getMinSlots(), getMaxSlots()).getRandomNumber();
         UniqueRandomNumberGenerator uniqueRandomNumberGenerator = new UniqueRandomNumberGenerator(0, 27);
         for (int i = 0; i < slots; i++) {
@@ -61,11 +62,11 @@ public class ChestManager {
 
             Set<Material> possibleMaterials = getPossibleMaterials(chestType).keySet();
             Material[] materialArray = possibleMaterials.toArray(new Material[0]);
-            int randomMaterialIndex = new Random().nextInt(possibleMaterials.size());
+            int randomMaterialIndex = random.nextInt(possibleMaterials.size());
             Material randomMaterialKey = materialArray[randomMaterialIndex];
 
-
-            ItemStack randomItem = new ItemBuilder(randomMaterialKey, getPossibleMaterials(chestType).get(randomMaterialKey)).toItemStack();
+            int randomStackSize = random.nextInt(getPossibleMaterials(chestType).get(randomMaterialKey));
+            ItemStack randomItem = new ItemBuilder(randomMaterialKey, randomStackSize).toItemStack();
             chest.getChest().getInventory().setItem(randomSlot, randomItem);
         }
     }
