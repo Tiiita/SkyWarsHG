@@ -5,6 +5,7 @@ import de.tiiita.skywarshg.game.StatsHandler;
 import de.tiiita.skywarshg.util.Config;
 import de.tiiita.skywarshg.util.TimeUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;

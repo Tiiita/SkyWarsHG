@@ -1,5 +1,7 @@
 package de.tiiita.skywarshg.util;
 
+import org.bukkit.Material;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

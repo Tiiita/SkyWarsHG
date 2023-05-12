@@ -33,10 +33,12 @@ public class ChestManager {
     public int removeChests() {
         int removedChests = 0;
         for (SWChest chest : currentChests) {
+            chest.getChest().getInventory().clear();
             chest.getLocation().getBlock().setType(Material.AIR);
-            currentChests.remove(chest);
             removedChests++;
         }
+
+        currentChests.clear();
 
         return removedChests;
     }
@@ -56,7 +58,7 @@ public class ChestManager {
     public void applyItems(SWChest chest, ChestType chestType) {
         Random random = new Random();
         int slots = new UniqueRandomNumberGenerator(getMinSlots(), getMaxSlots()).getRandomNumber();
-        UniqueRandomNumberGenerator uniqueRandomNumberGenerator = new UniqueRandomNumberGenerator(0, 27);
+        UniqueRandomNumberGenerator uniqueRandomNumberGenerator = new UniqueRandomNumberGenerator(0, 26);
         for (int i = 0; i < slots; i++) {
             int randomSlot = uniqueRandomNumberGenerator.getRandomNumber();
 
@@ -65,7 +67,7 @@ public class ChestManager {
             int randomMaterialIndex = random.nextInt(possibleMaterials.size());
             Material randomMaterialKey = materialArray[randomMaterialIndex];
 
-            int randomStackSize = random.nextInt(getPossibleMaterials(chestType).get(randomMaterialKey) + 1);
+            int randomStackSize = random.nextInt(getPossibleMaterials(chestType).get(randomMaterialKey)) + 1;
             ItemStack randomItem = new ItemBuilder(randomMaterialKey, randomStackSize).toItemStack();
             chest.getChest().getInventory().setItem(randomSlot, randomItem);
         }

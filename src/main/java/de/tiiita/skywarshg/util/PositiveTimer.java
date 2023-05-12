@@ -1,6 +1,7 @@
 package de.tiiita.skywarshg.util;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
