@@ -2,6 +2,7 @@ package de.tiiita.skywarshg;
 
 import de.tiiita.skywarshg.chest.ChestManager;
 import de.tiiita.skywarshg.command.ChestCommand;
+import de.tiiita.skywarshg.map.WorldManager;
 import de.tiiita.skywarshg.mode.configure.ConfigureCommand;
 import de.tiiita.skywarshg.command.StartCommand;
 import de.tiiita.skywarshg.game.phase.GamePhaseListener;
@@ -21,6 +22,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collection;
+import java.util.logging.Level;
 
 public final class SkyWarsHG extends JavaPlugin {
     private Config messagesConfig;
@@ -33,17 +35,22 @@ public final class SkyWarsHG extends JavaPlugin {
     private GameBoard gameBoard;
     private GameManager gameManager;
     private ChestManager chestManager;
+    private WorldManager worldManager;
     @Override
     public void onEnable() {
         // Plugin startup logic
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         //This is for the custom configs
-        configureWorlds();
         this.messagesConfig = new Config("messages.yml", this, true);
         this.mapSavesConfig = new Config("mapsaves.yml", this, false);
         this.chestsConfig = new Config("chests.yml", this, false);
         this.config = new Config("config.yml", this, false);
+
+
+        configureWorlds(); //Configure presets copy the configures later.
+        this.worldManager = new WorldManager(this, config);
+
 
         this.chestManager = new ChestManager(chestsConfig);
         this.statsHandler = new StatsHandler();
@@ -53,12 +60,17 @@ public final class SkyWarsHG extends JavaPlugin {
         registerListeners();
         registerCommands();
 
+
         gameManager.setCurrentGamePhase(GamePhase.LOBBY_PHASE);
+        worldManager.copyRandomWorld().whenComplete((world, throwable) -> {
+         getLogger().log(Level.INFO, "*** DONE! Server is ready ***");
+        });
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        worldManager.deleteCopy();
     }
 
 

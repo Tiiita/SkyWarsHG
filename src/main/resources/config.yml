@@ -1,3 +1,7 @@
+#Arenas
+arenas:
+  - world #You can add multiple worlds. The plugin will choose a random one. Write the name of the folder here!
+
 #Start Phase settings
 player-settings:
   max: 8
