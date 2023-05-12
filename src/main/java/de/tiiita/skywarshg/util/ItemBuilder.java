@@ -184,16 +184,6 @@ public class ItemBuilder {
     }
 
     /**
-     * Sets the durability to unbreakable
-     */
-    public ItemBuilder setUnbreakable(boolean unbreakable) {
-        ItemMeta im = is.getItemMeta();
-        im.spigot().setUnbreakable(unbreakable);
-        is.setItemMeta(im);
-        return this;
-    }
-
-    /**
      * Re-sets the lore.
      *
      * @param lore The lore to set it to.

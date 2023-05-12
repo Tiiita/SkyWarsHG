@@ -8,7 +8,7 @@ prefix: '&f&lSWHG &8| '
 scoreboard:
   title: '&f&lSkyWarsHG'
   header: '&8%date%'
-  footer: '&eexample.com'
+  footer: '&eSet up in messages.yml!'
   game:
     text: '&fGame: '
     value: '&7%info%'

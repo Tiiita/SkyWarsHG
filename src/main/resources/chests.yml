@@ -1,0 +1,35 @@
+#
+# How to use this chest system?
+# You have a normal-chest and middle-chest section. The middle-chest section is for the chest settings in the middle of the map.
+# The normal-chest section for the ones that are on the player's island or between the island and the middle.
+#
+# -------------------------------------------------------------
+# Item list ---> https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+#
+# You can put items in the selection of random items for the box by
+# writing "-ITEM_NAME". After that you write "#" for the
+# number of the maximum stack size.
+#
+# So "-TEST_ITEM#2" would be in the selection and can be
+# maximum 2 items per slot. You can set the item probability
+# with the frequency of entries in the section. If there is often the
+# same item it will be in the chest with higher probability than all others.
+#
+# **PLEASE NOTE**
+# You can use this plugin in higher or lover version than 1.8, but note
+# that you can only use items that are in every version.
+# Example: If you add "DIAMOND_SWORD#1" you can use this in every version from 1.7 - Newest. But you cannot
+# use items like "- CROSSBOW#1" in 1.8.
+
+normal-chest:
+  - MUSHROOM_STEW#1
+  - MUSHROOM_STEW#1
+  - MUSHROOM_STEW#1
+  - MUSHROOM_STEW#1
+  - MUSHROOM_STEW#1
+  - STONE_SWORD#1
+  - STONE_SWORD#1
+  - STEAK#11
+
+middle-chest:
+  - DIAMOND_SWORD#1

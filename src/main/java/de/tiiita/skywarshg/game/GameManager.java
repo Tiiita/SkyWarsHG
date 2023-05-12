@@ -84,6 +84,7 @@ public class GameManager implements Listener {
     public void onAchievementAward(PlayerAchievementAwardedEvent event) {
         event.setCancelled(true);
     }
+
     @EventHandler
     public void onWeatherChange(WeatherChangeEvent event) {
         event.setCancelled(true);

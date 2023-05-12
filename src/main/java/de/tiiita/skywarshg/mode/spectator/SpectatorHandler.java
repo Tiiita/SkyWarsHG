@@ -28,7 +28,6 @@ public class SpectatorHandler {
         player.setAllowFlight(true);
         player.setFlying(true);
         spectatorItems.apply(player);
-        player.updateInventory();
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.hidePlayer(player));
     }
 

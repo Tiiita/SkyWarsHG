@@ -15,12 +15,10 @@ import de.tiiita.skywarshg.mode.spectator.SpectatorListener;
 import de.tiiita.skywarshg.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.command.defaults.GameRuleCommand;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collection;
-import java.util.List;
 
 public final class SkyWarsHG extends JavaPlugin {
     private Config messagesConfig;
@@ -38,6 +36,7 @@ public final class SkyWarsHG extends JavaPlugin {
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         //This is for the custom configs
+        configureWorlds();
         this.messagesConfig = new Config("messages.yml", this, true);
         this.mapSavesConfig = new Config("mapsaves.yml", this, false);
         this.chestsConfig = new Config("chests.yml", this, false);
@@ -49,7 +48,6 @@ public final class SkyWarsHG extends JavaPlugin {
         this.spectatorHandler = new SpectatorHandler(messagesConfig);
         registerListeners();
         registerCommands();
-        configureWorlds();
 
         gameManager.setCurrentGamePhase(GamePhase.LOBBY_PHASE);
     }
@@ -64,12 +62,18 @@ public final class SkyWarsHG extends JavaPlugin {
         Collection<World> worlds = Bukkit.getWorlds();
         worlds.forEach(world -> {
             world.setAnimalSpawnLimit(0);
-            world.setAmbientSpawnLimit(0);
+            world.setMonsterSpawnLimit(0);
             world.getEntities().clear();
             world.setPVP(true);
             world.setTime(1000);
             world.setThundering(false);
             world.setStorm(false);
+            String version = Bukkit.getVersion(); // Get the version string
+            String[] parts = version.split("\\."); // Split the version string into parts
+            if (Integer.parseInt(parts[1]) > 13) { // Check if the minor version is greater than 13
+                world.setGameRuleValue("announceAdvancements", "false");
+            }
+
             world.setGameRuleValue("doMobSpawning", "false");
             world.setGameRuleValue("doDaylightCycle", "false");
             world.setGameRuleValue("keepInventory", "false");

@@ -1,6 +1,5 @@
 package de.tiiita.skywarshg.game;
 
-import org.apache.commons.lang.NullArgumentException;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +16,7 @@ public class StatsHandler implements Listener {
 
     public void addKill(Player player) {
         if (playerKillsMap.get(player) == null) {
-            throw new NullArgumentException("Could not add kill to player. Player is null");
+            throw new NullPointerException("Could not add kill to player. Player is null");
         }
 
         int currentKills = playerKillsMap.get(player);
