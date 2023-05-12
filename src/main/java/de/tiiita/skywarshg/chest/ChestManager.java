@@ -1,7 +1,6 @@
 package de.tiiita.skywarshg.chest;
 
 
-import com.avaje.ebeaninternal.server.lib.util.NotFoundException;
 import de.tiiita.skywarshg.util.Config;
 import de.tiiita.skywarshg.util.ItemBuilder;
 import de.tiiita.skywarshg.util.UniqueRandomNumberGenerator;
@@ -19,7 +18,7 @@ public class ChestManager {
 
     private final Config chestsConfig;
     private final Collection<SWChest> currentChests = new HashSet<>();
-
+    private final Random random = new Random();
 
     public ChestManager(Config chestsConfig) {
         this.chestsConfig = chestsConfig;
@@ -56,16 +55,20 @@ public class ChestManager {
     }
 
     public void applyItems(SWChest chest, ChestType chestType) {
-        Random random = new Random();
+        int reRollCounter = 0;
         int slots = new UniqueRandomNumberGenerator(getMinSlots(), getMaxSlots()).getRandomNumber();
         UniqueRandomNumberGenerator uniqueRandomNumberGenerator = new UniqueRandomNumberGenerator(0, 26);
         for (int i = 0; i < slots; i++) {
             int randomSlot = uniqueRandomNumberGenerator.getRandomNumber();
 
-            Set<Material> possibleMaterials = getPossibleMaterials(chestType).keySet();
-            Material[] materialArray = possibleMaterials.toArray(new Material[0]);
-            int randomMaterialIndex = random.nextInt(possibleMaterials.size());
-            Material randomMaterialKey = materialArray[randomMaterialIndex];
+            Material randomMaterialKey = getRandomMaterial(chestType);
+            int maxDuplicateRate = chestsConfig.getInt("max-duplicate-rate");
+            if (chest.getChest().getInventory().contains(randomMaterialKey)) {
+                if (reRollCounter > 2) continue;
+                applyItems(chest, chestType);
+                reRollCounter++;
+            }
+
 
             int randomStackSize = random.nextInt(getPossibleMaterials(chestType).get(randomMaterialKey)) + 1;
             ItemStack randomItem = new ItemBuilder(randomMaterialKey, randomStackSize).toItemStack();
@@ -80,6 +83,14 @@ public class ChestManager {
      */
     public Collection<SWChest> getCurrentChests() {
         return new HashSet<>(currentChests);
+    }
+
+    public Material getRandomMaterial(ChestType chestType) {
+        Random random = new Random();
+        Set<Material> possibleMaterials = getPossibleMaterials(chestType).keySet();
+        Material[] materialArray = possibleMaterials.toArray(new Material[0]);
+        int randomMaterialIndex = random.nextInt(possibleMaterials.size());
+        return materialArray[randomMaterialIndex];
     }
     /**
      *

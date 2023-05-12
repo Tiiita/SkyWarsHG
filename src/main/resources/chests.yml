@@ -27,6 +27,7 @@
 #So set the maximum slots! The plugin will randomly pick a slot number between the max-slots-set and min-slots-set!
 max-slots-set: 12 #Max. 27 (Do not use this it would be very ugly...)
 min-slots-set: 4 #Min. 1 -> This cannot be higher than max-slots-set!!!
+max-duplicate-rate: 3 #Set up the maximal duplicate rate. 3 = a item can be max. 3 times in the chest.
 
 #Chest Settings
 normal-chest:
@@ -38,6 +39,7 @@ normal-chest:
   - MUSHROOM_SOUP#1
   - RED_MUSHROOM#12
   - BROWN_MUSHROOM#12
+  - BOWL#12
   - IRON_HELMET#1
   - IRON_CHESTPLATE#1
   - IRON_LEGGINGS#1
