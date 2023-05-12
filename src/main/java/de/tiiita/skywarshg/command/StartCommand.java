@@ -41,13 +41,7 @@ public class StartCommand implements CommandExecutor {
         }
 
         if (args.length == 0) {
-            if (gameManager.isCurrentlyCounting()) {
-                String cannotDoThatMessage = messagesConfig.getString("command.start.cannot-start");
-                player.sendMessage(cannotDoThatMessage);
-                return true;
-            }
-
-            if (gameManager.getCurrentGamePhase() != GamePhase.LOBBY_PHASE) {
+            if (gameManager.getCurrentGamePhase() != GamePhase.LOBBY_PHASE || gameManager.isCurrentlyCounting()) {
                 String cannotDoThatMessage = messagesConfig.getString("command.start.cannot-start");
                 player.sendMessage(cannotDoThatMessage);
                 return true;
