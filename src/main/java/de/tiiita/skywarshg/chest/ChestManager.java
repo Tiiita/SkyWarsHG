@@ -1,6 +1,7 @@
 package de.tiiita.skywarshg.chest;
 
 
+import com.avaje.ebeaninternal.server.lib.util.NotFoundException;
 import de.tiiita.skywarshg.util.Config;
 import de.tiiita.skywarshg.util.ItemBuilder;
 import de.tiiita.skywarshg.util.UniqueRandomNumberGenerator;
@@ -66,8 +67,7 @@ public class ChestManager {
     /**
      *
      * @param chestType the chest type you want to get the possible items from.
-     * @return a map with the possible item and the max stack size. It returns
-     * null if the path was not found in the chest config or the material was not found.
+     * @return a map with the possible item and the max stack size.
      */
     public Map<Material, Integer> getPossibleMaterials(ChestType chestType) {
         switch (chestType) {
@@ -80,7 +80,8 @@ public class ChestManager {
 
     private Map<Material, Integer> getPossibleMaterialsFromConfig(String path) {
         Collection<String> entries = chestsConfig.getStringList(path);
-        if (entries == null) return null;
+        if (entries == null) throw new NotFoundException("Cannot find path: " + path + "in chests.yml!");
+
         Map<Material, Integer> materialToMaxStackSize = new HashMap<>();
 
         for (String entry : entries) {
@@ -90,7 +91,7 @@ public class ChestManager {
             int maxStackSize = Integer.parseInt(parts[1]);
 
             Material material = Material.getMaterial(materialName);
-            if (material == null) return null;
+            if (material == null) throw new NotFoundException("Material with the name: " + materialName + " was not found!");
 
             materialToMaxStackSize.put(material, maxStackSize);
         }
