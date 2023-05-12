@@ -30,11 +30,11 @@ min-slots-set: 4 #Min. 1 -> This cannot be higher than max-slots-set!!!
 
 #Chest Settings
 normal-chest:
-  - MUSHROOM_STEW#1
-  - MUSHROOM_STEW#1
-  - MUSHROOM_STEW#1
-  - MUSHROOM_STEW#1
-  - MUSHROOM_STEW#1
+  - MUSHROOM_SOUP#1
+  - MUSHROOM_SOUP#1
+  - MUSHROOM_SOUP#1
+  - MUSHROOM_SOUP#1
+  - MUSHROOM_SOUP#1
   - STONE_SWORD#1
   - STONE_SWORD#1
   - COOKED_BEEF#11

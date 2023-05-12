@@ -77,7 +77,6 @@ public class ChestManager {
         return null;
     }
 
-
     private Map<Material, Integer> getPossibleMaterialsFromConfig(String path) {
         Collection<String> entries = chestsConfig.getStringList(path);
         if (entries == null) throw new NotFoundException("Cannot find path: " + path + "in chests.yml!");
