@@ -50,11 +50,12 @@ public class ChestManager {
     public SWChest createChest(ChestType chestType, Location location) {
         SWChest chest = new SWChest(chestType, location);
         currentChests.add(chest);
-        applyItems(chest, chestType);
+        applyItems(chest);
         return chest;
     }
 
-    public void applyItems(SWChest chest, ChestType chestType) {
+    public void applyItems(SWChest chest) {
+        final ChestType chestType = chest.getChestType();
         int reRollCounter = 0;
         int slots = new UniqueRandomNumberGenerator(getMinSlots(), getMaxSlots()).getRandomNumber();
         UniqueRandomNumberGenerator uniqueRandomNumberGenerator = new UniqueRandomNumberGenerator(0, 26);
@@ -63,10 +64,15 @@ public class ChestManager {
 
             Material randomMaterialKey = getRandomMaterial(chestType);
             int maxDuplicateRate = chestsConfig.getInt("max-duplicate-rate");
-            if (chest.getChest().getInventory().contains(randomMaterialKey)) {
-                if (reRollCounter > 2) continue;
-                applyItems(chest, chestType);
-                reRollCounter++;
+            int duplications = 0;
+            for (ItemStack item : chest.getChest().getInventory().getContents()) {
+                if (item.getType() == randomMaterialKey) {
+                    duplications++;
+                }
+            }
+
+            if (duplications > maxDuplicateRate) {
+                continue;
             }
 
 
