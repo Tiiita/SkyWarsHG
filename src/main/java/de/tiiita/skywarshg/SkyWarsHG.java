@@ -1,5 +1,7 @@
 package de.tiiita.skywarshg;
 
+import de.tiiita.skywarshg.chest.ChestManager;
+import de.tiiita.skywarshg.command.ChestCommand;
 import de.tiiita.skywarshg.mode.configure.ConfigureCommand;
 import de.tiiita.skywarshg.command.StartCommand;
 import de.tiiita.skywarshg.game.phase.GamePhaseListener;
@@ -30,6 +32,7 @@ public final class SkyWarsHG extends JavaPlugin {
     private SpectatorHandler spectatorHandler;
     private GameBoard gameBoard;
     private GameManager gameManager;
+    private ChestManager chestManager;
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -42,6 +45,7 @@ public final class SkyWarsHG extends JavaPlugin {
         this.chestsConfig = new Config("chests.yml", this, false);
         this.config = new Config("config.yml", this, false);
 
+        this.chestManager = new ChestManager(chestsConfig);
         this.statsHandler = new StatsHandler();
         this.gameManager = new GameManager(getConfig());
         this.gameBoard = new GameBoard(gameManager, messagesConfig, statsHandler);
@@ -84,6 +88,7 @@ public final class SkyWarsHG extends JavaPlugin {
     private void registerCommands() {
         getCommand("start").setExecutor(new StartCommand(gameManager, messagesConfig, config));
         getCommand("configure").setExecutor(new ConfigureCommand());
+        getCommand("chest").setExecutor(new ChestCommand(chestManager));
     }
     private void registerListeners() {
         registerListener(statsHandler);
